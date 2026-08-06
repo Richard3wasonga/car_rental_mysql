@@ -37,3 +37,17 @@ CREATE TABLE cars (
     status ENUM('Available', 'Rented', 'Maintenance') NOT NULL DEFAULT 'Available',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+CREATE TABLE Maintenance (
+    maintenance_id INT AUTO_INCREMENT PRIMARY KEY,
+    car_id INT NOT NULL,
+    service_date DATE NOT NULL,
+    description TEXT NOT NULL,
+    cost DECIMAL(10,2) NOT NULL,
+    mechanic_name VARCHAR(100) NOT NULL,
+
+    CONSTRAINT fk_maintenance_car
+        FOREIGN KEY (car_id)
+        REFERENCES cars(car_id)
+        ON UPDATE CASCADE
+        ON DELETE RESTRICT
+);
