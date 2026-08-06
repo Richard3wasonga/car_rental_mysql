@@ -22,4 +22,16 @@ CREATE TABLE Employees (
     ON UPDATE CASCADE 
     ON DELETE RESTRICT 
 );
-
+CREATE TABLE cars (
+    car_id INT AUTO_INCREMENT PRIMARY KEY,
+    registration_number VARCHAR(20) NOT NULL UNIQUE,
+    brand VARCHAR(50) NOT NULL,
+    model VARCHAR(50) NOT NULL,
+    color VARCHAR(30) NOT NULL,
+    fuel_type ENUM('Petrol', 'Diesel', 'Hybrid', 'Electric') NOT NULL,
+    transmission ENUM('Manual', 'Automatic') NOT NULL,
+    seats INT NOT NULL,
+    daily_rate DECIMAL(10,2) NOT NULL,
+    status ENUM('Available', 'Rented', 'Maintenance') NOT NULL DEFAULT 'Available',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
