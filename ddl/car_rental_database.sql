@@ -16,7 +16,7 @@ CREATE TABLE Employees (
     phone VARCHAR(20) NOT NULL UNIQUE,
     job_title VARCHAR(50) NOT NULL,
     hire_date DATE NOT NULL,
-    branch_id INT NOT NULL,
+    
 
     FOREIGN KEY (branch_id)
         REFERENCES Branches(branch_id)
