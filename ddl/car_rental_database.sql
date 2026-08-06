@@ -18,8 +18,10 @@ CREATE TABLE Employees (
     hire_date DATE NOT NULL,
     branch_id INT NOT NULL,
     
-    CONSTRAINT fk_employee_branch FOREIGN KEY (branch_id) REFERENCES Branches(branch_id)
-    ON UPDATE CASCADE 
-    ON DELETE RESTRICT 
+    CONSTRAINT fk_employee_branch
+        FOREIGN KEY (branch_id) 
+        REFERENCES Branches(branch_id)
+        ON UPDATE CASCADE 
+        ON DELETE RESTRICT 
 );
 
