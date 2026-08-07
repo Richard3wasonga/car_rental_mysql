@@ -111,7 +111,7 @@ ddl/car_rental_database.sql
 1. Clone the repository
 
 ```bash
-git clone https://github.com/<your-username>/car_rental_mysql.git
+git clone https://github.com/Richard3wasonga/car_rental_mysql
 ```
 
 2. Open MySQL Workbench.
