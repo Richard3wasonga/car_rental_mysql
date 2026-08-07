@@ -134,3 +134,131 @@ The script will automatically create:
 - Relationships
 
 ---
+
+# Database Schema
+
+The database consists of the following tables.
+
+| Table | Description |
+|-------|-------------|
+| Customers | Stores customer information |
+| Branches | Company rental branches |
+| Employees | Employees assigned to branches |
+| CarCategories | Vehicle categories and daily rental rates |
+| Cars | Vehicle fleet |
+| Rentals | Rental transactions |
+| Payments | Rental payment records |
+| Maintenance | Vehicle servicing history |
+| RentalServices | Optional rental services |
+| RentalServiceDetails | Junction table linking rentals and services |
+
+---
+# Database Relationships
+
+The database includes the following relationships:
+
+| Relationship | Type |
+|-------------|------|
+| Branches → Employees | One-to-Many |
+| Branches → Cars | One-to-Many |
+| CarCategories → Cars | One-to-Many |
+| Customers → Rentals | One-to-Many |
+| Cars → Rentals | One-to-Many |
+| Employees → Rentals | One-to-Many |
+| Rentals → Payments | One-to-Many |
+| Cars → Maintenance | One-to-Many |
+| Rentals ↔ RentalServices | Many-to-Many |
+
+---
+
+# Database Features
+
+### Primary Keys
+
+Each major entity uses an AUTO_INCREMENT primary key.
+
+Example:
+
+```sql
+customer_id INT AUTO_INCREMENT PRIMARY KEY
+```
+
+---
+
+### Composite Primary Key
+
+The database implements a composite primary key using the junction table:
+
+```sql
+PRIMARY KEY (rental_id, service_id)
+```
+
+This prevents duplicate service entries for the same rental.
+
+---
+
+### Foreign Keys
+
+The database uses foreign keys to maintain referential integrity.
+
+Example:
+
+```sql
+CONSTRAINT fk_employee_branch
+FOREIGN KEY (branch_id)
+REFERENCES Branches(branch_id)
+```
+
+---
+
+### Cascade Rules
+
+The schema implements both:
+
+- ON UPDATE CASCADE
+- ON DELETE CASCADE
+
+where appropriate, while using
+
+- ON DELETE RESTRICT
+
+to prevent accidental deletion of important parent records.
+
+---
+
+## Technologies Used
+
+| Category | Technology |
+|----------|------------|
+| Database | MySQL 8 |
+| SQL Language | DDL |
+| Development Environment | Visual Studio Code / MySQL Workbench |
+| Version Control | Git & GitHub |
+
+---
+
+## Authors
+
+- **Megan Philister** *(Group Leader)*
+- Joel Ndung'u
+- Nashaa Ndamu
+- Ashley Mwanza
+- Eric Kabui
+- Fred Nyaga
+- Eric Mwendwa
+- Zuwena Kisya
+- Richard Wasonga
+- Melissa Wanjiru
+- Andreas Muhavi
+
+---
+
+## Contributing
+
+Pull requests are welcome. For significant changes, please open an issue first to discuss the proposed modifications.
+
+---
+
+## License
+
+This project is intended for educational purposes as part of a Car Rental Management System database design assignment.
