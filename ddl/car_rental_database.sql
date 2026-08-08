@@ -61,11 +61,11 @@ CREATE TABLE Maintenance (
     cost DECIMAL(10,2) NOT NULL,
     mechanic_name VARCHAR(100) NOT NULL,
 
-    CONSTRAINT fk_maintenance_car
-        FOREIGN KEY (car_id)
-    CREATE TABLE IF NOT EXISTS Rentals (
-    rental_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    customer_name TEXT NOT NULL
+    CONSTRAINT fk_maintenance_car 
+        FOREIGN KEY (car_id) 
+        REFERENCES Cars(car_id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE 
 );
 
 CREATE TABLE IF NOT EXISTS Payments (
