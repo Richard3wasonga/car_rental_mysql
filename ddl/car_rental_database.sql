@@ -90,3 +90,24 @@ CREATE TABLE IF NOT EXISTS Payments (
         ON DELETE CASCADE 
 );
 
+CREATE TABLE RentalServiceDetails ( 
+    rental_id INT NOT NULL, 
+    service_id INT NOT NULL, 
+    quantity INT NOT NULL DEFAULT 1, 
+
+    PRIMARY KEY (rental_id, service_id), 
+
+    CONSTRAINT fk_service_rental 
+        FOREIGN KEY (rental_id) 
+        REFERENCES Rentals(rental_id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE, 
+
+    CONSTRAINT fk_service 
+        FOREIGN KEY (service_id) 
+        REFERENCES RentalServices(service_id) 
+        ON UPDATE CASCADE 
+        ON DELETE RESTRICT 
+
+); 
+
