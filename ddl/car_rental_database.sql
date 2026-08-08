@@ -1,5 +1,7 @@
 -- DriveEase Rentals Database
 
+DROP DATABASE IF EXISTS driveease_rentals;
+
 CREATE DATABASE IF NOT EXISTS driveease_rentals;
 
 USE driveease_rentals;
@@ -66,7 +68,7 @@ CREATE TABLE cars (
 
     CONSTRAINT fk_car_category 
         FOREIGN KEY (category_id) 
-        REFERENCES CarCategories(category_id) 
+        REFERENCES Car_Categories(category_id) 
         ON UPDATE CASCADE 
         ON DELETE RESTRICT, 
  
