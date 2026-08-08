@@ -27,18 +27,32 @@ CREATE TABLE Employees (
 CREATE TABLE cars (
     car_id INT AUTO_INCREMENT PRIMARY KEY,
     registration_number VARCHAR(20) NOT NULL UNIQUE,
-    brand VARCHAR(50) NOT NULL,
+    make VARCHAR(50) NOT NULL,
     model VARCHAR(50) NOT NULL,
     color VARCHAR(30) NOT NULL,
+    manufacture_year YEAR NOT NULL,
+    mileage INT NOT NULL, 
+    seats INT NOT NULL,
     fuel_type ENUM('Petrol', 'Diesel', 'Hybrid', 'Electric') NOT NULL,
     transmission ENUM('Manual', 'Automatic') NOT NULL,
-    seats INT NOT NULL,
-    daily_rate DECIMAL(10,2) NOT NULL,
-    status ENUM('Available', 'Rented', 'Maintenance') NOT NULL DEFAULT 'Available',
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    status ENUM('Available', 'Rented', 'Maintenance', 'Retired') NOT NULL DEFAULT 'Available',
+
+    category_id INT NOT NULL, 
+    branch_id INT NOT NULL, 
+
+    CONSTRAINT fk_car_category 
+        FOREIGN KEY (category_id) 
+        REFERENCES CarCategories(category_id) 
+        ON UPDATE CASCADE 
+        ON DELETE RESTRICT, 
+ 
+    CONSTRAINT fk_car_branch 
+        FOREIGN KEY (branch_id) 
+        REFERENCES Branches(branch_id) 
+        ON UPDATE CASCADE 
+        ON DELETE RESTRICT     
 );
-CREATE TABLE IF NOT EXISTS Rentals (    rental_id INTEGER PRIMARY KEY AUTOINCREMENT,    customer_name TEXT NOT NULL);CREATE TABLE IF NOT EXISTS Payments (    payment_id INTEGER PRIMARY KEY AUTOINCREMENT,    rental_id INTEGER NOT NULL,    payment_date DATE NOT NULL,    amount DECIMAL(10, 2) NOT NULL,    payment_method TEXT CHECK (payment_method IN ('Cash', 'Card', 'M-Pesa')),    payment_status TEXT CHECK (payment_status IN ('Paid', 'Pending', 'Refunded')),    FOREIGN KEY (rental_id) REFERENCES Rentals(rental_id));INSERT INTO Rentals (rental_id, customer_name) VALUES     (101, 'John Doe'),    (102, 'Jane Smith'),    (103, 'Alex Mercer'),    (104, 'Sarah Connor');INSERT INTO Payments (rental_id, payment_date, amount, payment_method, payment_status) VALUES     (101, '2026-08-01', 150.00, 'Card', 'Paid'),    (102, '2026-08-02', 75.50, 'M-Pesa', 'Paid'),    (103, '2026-08-03', 200.00, 'Cash', 'Pending'),    (104, '2026-08-04', 50.00, 'Card', 'Refunded');SELECT * FROM Payments;
-Collapse file‎Gymforever-main/payment.sql‎Copy file name to clipboard+28Lines changed: 28 additions & 0 deletionsOriginal file line numberDiff line numberDiff line change
+
 CREATE TABLE Maintenance (
     maintenance_id INT AUTO_INCREMENT PRIMARY KEY,
     car_id INT NOT NULL,
@@ -64,20 +78,3 @@ CREATE TABLE IF NOT EXISTS Payments (
     FOREIGN KEY (rental_id) REFERENCES Rentals(rental_id)
 );
 
-INSERT INTO Rentals (rental_id, customer_name) VALUES 
-    (101, 'John Doe'),
-    (102, 'Jane Smith'),
-    (103, 'Alex Mercer'),
-    (104, 'Sarah Connor');
-
-INSERT INTO Payments (rental_id, payment_date, amount, payment_method, payment_status) VALUES 
-    (101, '2026-08-01', 150.00, 'Card', 'Paid'),
-    (102, '2026-08-02', 75.50, 'M-Pesa', 'Paid'),
-    (103, '2026-08-03', 200.00, 'Cash', 'Pending'),
-    (104, '2026-08-04', 50.00, 'Card', 'Refunded');
-
-SELECT * FROM Payments;
-        REFERENCES cars(car_id)
-        ON UPDATE CASCADE
-        ON DELETE RESTRICT
-);
