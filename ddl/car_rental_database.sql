@@ -4,6 +4,18 @@ CREATE DATABASE IF NOT EXISTS driveease_rentals;
 
 USE driveease_rentals;
 
+CREATE TABLE Customers ( 
+    customer_id INT AUTO_INCREMENT PRIMARY KEY, 
+    first_name VARCHAR(50) NOT NULL, 
+    last_name VARCHAR(50) NOT NULL, 
+    email VARCHAR(100) NOT NULL UNIQUE, 
+    phone VARCHAR(20) NOT NULL UNIQUE, 
+    national_id VARCHAR(20) NOT NULL UNIQUE, 
+    drivers_license_no VARCHAR(50) NOT NULL UNIQUE, 
+    address VARCHAR(255), 
+    date_registered DATE DEFAULT (CURRENT_DATE) 
+); 
+
 CREATE TABLE Employees (
     employee_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
