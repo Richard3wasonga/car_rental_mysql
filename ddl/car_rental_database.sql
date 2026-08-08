@@ -4,10 +4,6 @@ CREATE DATABASE IF NOT EXISTS driveease_rentals;
 
 USE driveease_rentals;
 
-create table Branches(
-branch_id int primary key
-);
-
 CREATE TABLE Employees (
     employee_id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(50) NOT NULL,
@@ -69,12 +65,16 @@ CREATE TABLE Maintenance (
 );
 
 CREATE TABLE IF NOT EXISTS Payments (
-    payment_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    rental_id INTEGER NOT NULL,
+    payment_id INT AUTO_INCREMENT PRIMARY KEY,
+    rental_id INT NOT NULL,
     payment_date DATE NOT NULL,
     amount DECIMAL(10, 2) NOT NULL,
-    payment_method TEXT CHECK (payment_method IN ('Cash', 'Card', 'M-Pesa')),
-    payment_status TEXT CHECK (payment_status IN ('Paid', 'Pending', 'Refunded')),
-    FOREIGN KEY (rental_id) REFERENCES Rentals(rental_id)
+    payment_method TEXT NOT NULL CHECK (payment_method IN ('Cash', 'Card', 'M-Pesa')),
+    payment_status TEXT NOT NULL CHECK (payment_status IN ('Paid', 'Pending', 'Refunded')),
+    CONSTRAINT fk_payment_rental 
+        FOREIGN KEY (rental_id) 
+        REFERENCES Rentals(rental_id)
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE 
 );
 
