@@ -1,8 +1,38 @@
 -- DriveEase Rentals Database
 
+DROP DATABASE IF EXISTS driveease_rentals;
+
 CREATE DATABASE IF NOT EXISTS driveease_rentals;
 
 USE driveease_rentals;
+
+CREATE TABLE Customers ( 
+    customer_id INT AUTO_INCREMENT PRIMARY KEY, 
+    first_name VARCHAR(50) NOT NULL, 
+    last_name VARCHAR(50) NOT NULL, 
+    email VARCHAR(100) NOT NULL UNIQUE, 
+    phone VARCHAR(20) NOT NULL UNIQUE, 
+    national_id VARCHAR(20) NOT NULL UNIQUE, 
+    drivers_license_no VARCHAR(50) NOT NULL UNIQUE, 
+    address VARCHAR(255), 
+    date_registered DATE DEFAULT (CURRENT_DATE) 
+);
+
+CREATE TABLE Branches ( 
+    branch_id INT AUTO_INCREMENT PRIMARY KEY, 
+    branch_name VARCHAR(100) NOT NULL UNIQUE, 
+    city VARCHAR(50) NOT NULL, 
+    address VARCHAR(255) NOT NULL, 
+    phone VARCHAR(20) NOT NULL UNIQUE 
+
+);
+
+CREATE TABLE Car_Categories ( 
+    category_id INT AUTO_INCREMENT PRIMARY KEY, 
+    category_name VARCHAR(50) NOT NULL UNIQUE, 
+    daily_rate DECIMAL(10,2) NOT NULL 
+
+); 
 
 CREATE TABLE Employees (
     employee_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -38,7 +68,7 @@ CREATE TABLE cars (
 
     CONSTRAINT fk_car_category 
         FOREIGN KEY (category_id) 
-        REFERENCES CarCategories(category_id) 
+        REFERENCES Car_Categories(category_id) 
         ON UPDATE CASCADE 
         ON DELETE RESTRICT, 
  
@@ -48,6 +78,40 @@ CREATE TABLE cars (
         ON UPDATE CASCADE 
         ON DELETE RESTRICT     
 );
+
+CREATE TABLE Rentals ( 
+    rental_id INT AUTO_INCREMENT PRIMARY KEY, 
+    customer_id INT NOT NULL, 
+    car_id INT NOT NULL, 
+    employee_id INT NOT NULL, 
+    rental_date DATE NOT NULL, 
+    expected_return_date DATE NOT NULL, 
+    actual_return_date DATE, 
+    rental_status ENUM( 
+        'Active', 
+        'Completed', 
+        'Cancelled' 
+    ) NOT NULL DEFAULT 'Active', 
+
+    CONSTRAINT fk_rental_customer 
+        FOREIGN KEY (customer_id) 
+        REFERENCES Customers(customer_id) 
+        ON UPDATE CASCADE 
+        ON DELETE RESTRICT, 
+
+    CONSTRAINT fk_rental_car 
+        FOREIGN KEY (car_id) 
+        REFERENCES Cars(car_id) 
+        ON UPDATE CASCADE 
+        ON DELETE RESTRICT, 
+
+    CONSTRAINT fk_rental_employee 
+        FOREIGN KEY (employee_id) 
+        REFERENCES Employees(employee_id) 
+        ON UPDATE CASCADE 
+        ON DELETE RESTRICT 
+
+); 
 
 CREATE TABLE Maintenance (
     maintenance_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -77,4 +141,31 @@ CREATE TABLE IF NOT EXISTS Payments (
         ON UPDATE CASCADE 
         ON DELETE CASCADE 
 );
+
+CREATE TABLE RentalServices ( 
+    service_id INT AUTO_INCREMENT PRIMARY KEY, 
+    service_name VARCHAR(100) NOT NULL UNIQUE, 
+    daily_price DECIMAL(10,2) NOT NULL 
+); 
+
+CREATE TABLE RentalServiceDetails ( 
+    rental_id INT NOT NULL, 
+    service_id INT NOT NULL, 
+    quantity INT NOT NULL DEFAULT 1, 
+
+    PRIMARY KEY (rental_id, service_id), 
+
+    CONSTRAINT fk_service_rental 
+        FOREIGN KEY (rental_id) 
+        REFERENCES Rentals(rental_id) 
+        ON UPDATE CASCADE 
+        ON DELETE CASCADE, 
+
+    CONSTRAINT fk_service 
+        FOREIGN KEY (service_id) 
+        REFERENCES RentalServices(service_id) 
+        ON UPDATE CASCADE 
+        ON DELETE RESTRICT 
+
+); 
 
