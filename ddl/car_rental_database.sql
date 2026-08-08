@@ -90,6 +90,12 @@ CREATE TABLE IF NOT EXISTS Payments (
         ON DELETE CASCADE 
 );
 
+CREATE TABLE RentalServices ( 
+    service_id INT AUTO_INCREMENT PRIMARY KEY, 
+    service_name VARCHAR(100) NOT NULL UNIQUE, 
+    daily_price DECIMAL(10,2) NOT NULL 
+); 
+
 CREATE TABLE RentalServiceDetails ( 
     rental_id INT NOT NULL, 
     service_id INT NOT NULL, 
