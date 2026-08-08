@@ -14,6 +14,15 @@ CREATE TABLE Customers (
     drivers_license_no VARCHAR(50) NOT NULL UNIQUE, 
     address VARCHAR(255), 
     date_registered DATE DEFAULT (CURRENT_DATE) 
+);
+
+CREATE TABLE Branches ( 
+    branch_id INT AUTO_INCREMENT PRIMARY KEY, 
+    branch_name VARCHAR(100) NOT NULL UNIQUE, 
+    city VARCHAR(50) NOT NULL, 
+    address VARCHAR(255) NOT NULL, 
+    phone VARCHAR(20) NOT NULL UNIQUE 
+
 ); 
 
 CREATE TABLE Employees (
