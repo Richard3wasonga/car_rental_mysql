@@ -23,6 +23,13 @@ CREATE TABLE Branches (
     address VARCHAR(255) NOT NULL, 
     phone VARCHAR(20) NOT NULL UNIQUE 
 
+);
+
+CREATE TABLE Car_Categories ( 
+    category_id INT AUTO_INCREMENT PRIMARY KEY, 
+    category_name VARCHAR(50) NOT NULL UNIQUE, 
+    daily_rate DECIMAL(10,2) NOT NULL 
+
 ); 
 
 CREATE TABLE Employees (
