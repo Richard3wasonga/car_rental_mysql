@@ -66,23 +66,23 @@ VALUES
 ('KDZ 124Z', 'Toyota', 'Hilux', 2022, 'Black', 33000, 5, 'Diesel', 'Manual', 'Available', 4, 3),
 
 -- Kisumu Branch
-('KEA 125A', 'Toyota', 'Fielder', 2021, 'White', 34000, 5, 'Hybrid', 'Automatic', 'Available', 2, 4),
-('KEB 126B', 'Nissan', 'March', 2023, 'Silver', 11000, 5, 'Petrol', 'Automatic', 'Available', 1, 4),
-('KEC 127C', 'Subaru', 'XV', 2022, 'Blue', 25000, 5, 'Petrol', 'Automatic', 'Rented', 3, 4),
-('KED 128D', 'Toyota', 'Fortuner', 2021, 'Black', 47000, 7, 'Diesel', 'Automatic', 'Available', 5, 4),
-('KEE 129E', 'Ford', 'Everest', 2020, 'Grey', 68000, 7, 'Diesel', 'Automatic', 'Maintenance', 5, 4),
-('KEF 130F', 'Isuzu', 'D-Max', 2022, 'White', 22000, 5, 'Diesel', 'Manual', 'Available', 4, 4),
-('KEG 131G', 'Honda', 'Civic', 2023, 'Red', 15000, 5, 'Petrol', 'Automatic', 'Available', 2, 4),
-('KEH 132H', 'Mazda', 'CX-30', 2024, 'Blue', 5000, 5, 'Petrol', 'Automatic', 'Available', 3, 4),
+('KDA 125A', 'Toyota', 'Fielder', 2021, 'White', 34000, 5, 'Hybrid', 'Automatic', 'Available', 2, 4),
+('KDS 126B', 'Nissan', 'March', 2023, 'Silver', 11000, 5, 'Petrol', 'Automatic', 'Available', 1, 4),
+('KDT 127C', 'Subaru', 'XV', 2022, 'Blue', 25000, 5, 'Petrol', 'Automatic', 'Rented', 3, 4),
+('KDH 128D', 'Toyota', 'Fortuner', 2021, 'Black', 47000, 7, 'Diesel', 'Automatic', 'Available', 5, 4),
+('KDQ 129E', 'Ford', 'Everest', 2020, 'Grey', 68000, 7, 'Diesel', 'Automatic', 'Maintenance', 5, 4),
+('KDK 130F', 'Isuzu', 'D-Max', 2022, 'White', 22000, 5, 'Diesel', 'Manual', 'Available', 4, 4),
+('KDL 131G', 'Honda', 'Civic', 2023, 'Red', 15000, 5, 'Petrol', 'Automatic', 'Available', 2, 4),
+('KDU 132H', 'Mazda', 'CX-30', 2024, 'Blue', 5000, 5, 'Petrol', 'Automatic', 'Available', 3, 4),
 
 -- Nakuru Branch
-('KEJ 133J', 'Toyota', 'Corolla', 2022, 'White', 27000, 5, 'Petrol', 'Automatic', 'Available', 2, 5),
-('KEK 134K', 'Toyota', 'Prado', 2021, 'Black', 51000, 7, 'Diesel', 'Automatic', 'Rented', 5, 5),
-('KEL 135L', 'Nissan', 'Note', 2024, 'Silver', 7000, 5, 'Petrol', 'Automatic', 'Available', 1, 5),
-('KEM 136M', 'Honda', 'CR-V', 2022, 'Grey', 29000, 5, 'Petrol', 'Automatic', 'Available', 3, 5),
-('KEN 137N', 'Mercedes-Benz', 'E200', 2023, 'Black', 13000, 5, 'Petrol', 'Automatic', 'Available', 5, 5),
-('KEP 138P', 'Toyota', 'Hilux', 2021, 'White', 48000, 5, 'Diesel', 'Manual', 'Available', 4, 5),
-('KEQ 139Q', 'Suzuki', 'Alto', 2023, 'Blue', 10000, 4, 'Petrol', 'Manual', 'Available', 6, 5),
-('KER 140R', 'BMW', '320i', 2022, 'White', 21000, 5, 'Petrol', 'Automatic', 'Available', 5, 5);
+('KDJ 133J', 'Toyota', 'Corolla', 2022, 'White', 27000, 5, 'Petrol', 'Automatic', 'Available', 2, 5),
+('KDK 134K', 'Toyota', 'Prado', 2021, 'Black', 51000, 7, 'Diesel', 'Automatic', 'Rented', 5, 5),
+('KDL 135L', 'Nissan', 'Note', 2024, 'Silver', 7000, 5, 'Petrol', 'Automatic', 'Available', 1, 5),
+('KDM 136M', 'Honda', 'CR-V', 2022, 'Grey', 29000, 5, 'Petrol', 'Automatic', 'Available', 3, 5),
+('KDN 137N', 'Mercedes-Benz', 'E200', 2023, 'Black', 13000, 5, 'Petrol', 'Automatic', 'Available', 5, 5),
+('KDP 138P', 'Toyota', 'Hilux', 2021, 'White', 48000, 5, 'Diesel', 'Manual', 'Available', 4, 5),
+('KDQ 139Q', 'Suzuki', 'Alto', 2023, 'Blue', 10000, 4, 'Petrol', 'Manual', 'Available', 6, 5),
+('KDL 140R', 'BMW', '320i', 2022, 'White', 21000, 5, 'Petrol', 'Automatic', 'Available', 5, 5);
 
 SAVEPOINT cars_loaded;
