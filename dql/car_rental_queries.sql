@@ -230,3 +230,26 @@ WHERE p.amount = (
     SELECT MAX(amount)
     FROM Payments
 );
+
+-- 5. Which rental services were selected more times than the average service selection count?
+-- Demonstrates: Subquery, GROUP BY and COUNT
+
+SELECT
+    rs.service_id,
+    rs.service_name,
+    COUNT(rsd.rental_id) AS selection_count
+FROM RentalServices rs
+JOIN RentalServiceDetails rsd
+    ON rs.service_id = rsd.service_id
+GROUP BY
+    rs.service_id,
+    rs.service_name
+HAVING COUNT(rsd.rental_id) > (
+    SELECT AVG(selection_count)
+    FROM (
+        SELECT COUNT(*) AS selection_count
+        FROM RentalServiceDetails
+        GROUP BY service_id
+    ) AS service_selections
+)
+ORDER BY selection_count DESC;
