@@ -55,3 +55,19 @@ JOIN Rentals r
 JOIN Cars ca
     ON r.car_id = ca.car_id
 ORDER BY c.customer_id, r.rental_date;
+
+-- 2. How many rentals has each employee processed?
+-- Demonstrates: JOIN, GROUP BY and COUNT
+
+SELECT
+    e.employee_id,
+    CONCAT(e.first_name, ' ', e.last_name) AS employee_name,
+    COUNT(r.rental_id) AS total_rentals_processed
+FROM Employees e
+LEFT JOIN Rentals r
+    ON e.employee_id = r.employee_id
+GROUP BY
+    e.employee_id,
+    e.first_name,
+    e.last_name
+ORDER BY total_rentals_processed DESC;
