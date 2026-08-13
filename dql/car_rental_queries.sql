@@ -254,7 +254,7 @@ HAVING COUNT(rsd.rental_id) > (
 )
 ORDER BY selection_count DESC;
 
--- 17. Which customers have made at least one rental?
+-- 6. Which customers have made at least one rental?
 -- Demonstrates: Correlated subquery and EXISTS
 
 SELECT
@@ -268,7 +268,7 @@ WHERE EXISTS (
 )
 ORDER BY c.customer_id;
 
--- 18. Which maintenance records have a cost greater than the average maintenance cost for that car?
+-- 7. Which maintenance records have a cost greater than the average maintenance cost for that car?
 -- Demonstrates: Correlated subquery
 
 SELECT
@@ -284,3 +284,34 @@ WHERE m.cost > (
     WHERE m2.car_id = m.car_id
 )
 ORDER BY m.car_id, m.cost DESC;
+
+
+-- VIEWS
+
+
+-- 1: AVAILABLE CARS BY BRANCH
+-- Purpose: Shows managers which cars are currently available at each branch.
+
+CREATE OR REPLACE VIEW available_cars_by_branch AS
+SELECT
+    b.branch_id,
+    b.branch_name,
+    b.city,
+    c.car_id,
+    c.registration_number,
+    c.make,
+    c.model,
+    cc.category_name,
+    cc.daily_rate
+FROM Branches b
+JOIN Cars c
+    ON b.branch_id = c.branch_id
+JOIN Car_Categories cc
+    ON c.category_id = cc.category_id
+WHERE c.status = 'Available';
+
+
+-- Example query against the view
+SELECT *
+FROM available_cars_by_branch
+ORDER BY branch_name, category_name;
