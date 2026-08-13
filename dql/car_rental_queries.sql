@@ -253,3 +253,134 @@ HAVING COUNT(rsd.rental_id) > (
     ) AS service_selections
 )
 ORDER BY selection_count DESC;
+
+-- 6. Which customers have made at least one rental?
+-- Demonstrates: Correlated subquery and EXISTS
+
+SELECT
+    c.customer_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name
+FROM Customers c
+WHERE EXISTS (
+    SELECT 1
+    FROM Rentals r
+    WHERE r.customer_id = c.customer_id
+)
+ORDER BY c.customer_id;
+
+-- 7. Which maintenance records have a cost greater than the average maintenance cost for that car?
+-- Demonstrates: Correlated subquery
+
+SELECT
+    m.maintenance_id,
+    m.car_id,
+    m.service_date,
+    m.description,
+    m.cost
+FROM Maintenance m
+WHERE m.cost > (
+    SELECT AVG(m2.cost)
+    FROM Maintenance m2
+    WHERE m2.car_id = m.car_id
+)
+ORDER BY m.car_id, m.cost DESC;
+
+
+-- VIEWS
+
+
+-- 1: AVAILABLE CARS BY BRANCH
+-- Purpose: Shows managers which cars are currently available at each branch.
+
+CREATE OR REPLACE VIEW available_cars_by_branch AS
+SELECT
+    b.branch_id,
+    b.branch_name,
+    b.city,
+    c.car_id,
+    c.registration_number,
+    c.make,
+    c.model,
+    cc.category_name,
+    cc.daily_rate
+FROM Branches b
+JOIN Cars c
+    ON b.branch_id = c.branch_id
+JOIN Car_Categories cc
+    ON c.category_id = cc.category_id
+WHERE c.status = 'Available';
+
+
+-- Example query against the view
+SELECT *
+FROM available_cars_by_branch
+ORDER BY branch_name, category_name;
+
+
+
+-- 2: BRANCH RENTAL PERFORMANCE
+-- Purpose: Shows rental activity and payment amounts associated with each branch.
+
+CREATE OR REPLACE VIEW branch_rental_performance AS
+SELECT
+    b.branch_id,
+    b.branch_name,
+    b.city,
+    COUNT(DISTINCT r.rental_id) AS total_rentals,
+    COUNT(DISTINCT CASE
+        WHEN r.rental_status = 'Completed'
+        THEN r.rental_id
+    END) AS completed_rentals,
+    COUNT(DISTINCT CASE
+        WHEN r.rental_status = 'Active'
+        THEN r.rental_id
+    END) AS active_rentals,
+    COALESCE(SUM(p.amount), 0) AS total_payment_amount
+FROM Branches b
+LEFT JOIN Employees e
+    ON b.branch_id = e.branch_id
+LEFT JOIN Rentals r
+    ON e.employee_id = r.employee_id
+LEFT JOIN Payments p
+    ON r.rental_id = p.rental_id
+GROUP BY
+    b.branch_id,
+    b.branch_name,
+    b.city;
+
+
+-- Example query against the view
+SELECT *
+FROM branch_rental_performance
+ORDER BY total_payment_amount DESC;
+
+
+
+-- 3: CAR MAINTENANCE SUMMARY
+-- Purpose: Helps fleet managers monitor maintenance history and maintenance costs for each vehicle.
+
+CREATE OR REPLACE VIEW car_maintenance_summary AS
+SELECT
+    c.car_id,
+    c.registration_number,
+    c.make,
+    c.model,
+    c.status,
+    COUNT(m.maintenance_id) AS maintenance_records,
+    COALESCE(SUM(m.cost), 0) AS total_maintenance_cost,
+    COALESCE(AVG(m.cost), 0) AS average_maintenance_cost
+FROM Cars c
+LEFT JOIN Maintenance m
+    ON c.car_id = m.car_id
+GROUP BY
+    c.car_id,
+    c.registration_number,
+    c.make,
+    c.model,
+    c.status;
+
+
+-- Example query against the view
+SELECT *
+FROM car_maintenance_summary
+ORDER BY total_maintenance_cost DESC;
