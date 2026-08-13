@@ -134,6 +134,8 @@ JOIN RentalServices rs
     ON rsd.service_id = rs.service_id
 ORDER BY rsd.rental_id, rs.service_name;
 
+
+
 -- ADVANCED DQL QUERIES
 
 -- 1. Which customers made more rentals than the average customer?
@@ -186,3 +188,26 @@ HAVING COUNT(r.rental_id) > (
     ) AS car_rentals
 )
 ORDER BY total_rentals DESC;
+
+-- 3. Which branches have more cars than the average number of cars per branch?
+-- Demonstrates: Subquery, JOIN and GROUP BY
+
+SELECT
+    b.branch_id,
+    b.branch_name,
+    COUNT(ca.car_id) AS total_cars
+FROM Branches b
+JOIN Cars ca
+    ON b.branch_id = ca.branch_id
+GROUP BY
+    b.branch_id,
+    b.branch_name
+HAVING COUNT(ca.car_id) > (
+    SELECT AVG(car_count)
+    FROM (
+        SELECT COUNT(*) AS car_count
+        FROM Cars
+        GROUP BY branch_id
+    ) AS branch_cars
+)
+ORDER BY total_cars DESC;
