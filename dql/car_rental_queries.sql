@@ -71,3 +71,17 @@ GROUP BY
     e.first_name,
     e.last_name
 ORDER BY total_rentals_processed DESC;
+
+-- 3. What are the cars in each category and their daily rental rates?
+-- Demonstrates: JOIN between Cars and Car_Categories
+
+SELECT
+    cc.category_name,
+    ca.registration_number,
+    ca.make,
+    ca.model,
+    cc.daily_rate
+FROM Car_Categories cc
+JOIN Cars ca
+    ON cc.category_id = ca.category_id
+ORDER BY cc.category_name, ca.registration_number;
