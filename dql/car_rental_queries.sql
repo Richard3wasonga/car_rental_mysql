@@ -211,3 +211,22 @@ HAVING COUNT(ca.car_id) > (
     ) AS branch_cars
 )
 ORDER BY total_cars DESC;
+
+-- 4. Which rental had the highest payment amount?
+-- Demonstrates: Subquery and MAX
+
+SELECT
+    r.rental_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    p.amount AS payment_amount,
+    p.payment_method,
+    p.payment_status
+FROM Rentals r
+JOIN Customers c
+    ON r.customer_id = c.customer_id
+JOIN Payments p
+    ON r.rental_id = p.rental_id
+WHERE p.amount = (
+    SELECT MAX(amount)
+    FROM Payments
+);
