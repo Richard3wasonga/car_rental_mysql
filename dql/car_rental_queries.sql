@@ -133,3 +133,123 @@ FROM RentalServiceDetails rsd
 JOIN RentalServices rs
     ON rsd.service_id = rs.service_id
 ORDER BY rsd.rental_id, rs.service_name;
+
+
+
+-- ADVANCED DQL QUERIES
+
+-- 1. Which customers made more rentals than the average customer?
+-- Demonstrates: Subquery and GROUP BY
+
+SELECT
+    c.customer_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    COUNT(r.rental_id) AS total_rentals
+FROM Customers c
+JOIN Rentals r
+    ON c.customer_id = r.customer_id
+GROUP BY
+    c.customer_id,
+    c.first_name,
+    c.last_name
+HAVING COUNT(r.rental_id) > (
+    SELECT AVG(rental_count)
+    FROM (
+        SELECT COUNT(*) AS rental_count
+        FROM Rentals
+        GROUP BY customer_id
+    ) AS customer_rentals
+)
+ORDER BY total_rentals DESC;
+
+-- 2. Which cars were rented more times than the average number of rentals per car?
+-- Demonstrates: Subquery and GROUP BY
+
+SELECT
+    ca.car_id,
+    ca.registration_number,
+    ca.make,
+    ca.model,
+    COUNT(r.rental_id) AS total_rentals
+FROM Cars ca
+JOIN Rentals r
+    ON ca.car_id = r.car_id
+GROUP BY
+    ca.car_id,
+    ca.registration_number,
+    ca.make,
+    ca.model
+HAVING COUNT(r.rental_id) > (
+    SELECT AVG(rental_count)
+    FROM (
+        SELECT COUNT(*) AS rental_count
+        FROM Rentals
+        GROUP BY car_id
+    ) AS car_rentals
+)
+ORDER BY total_rentals DESC;
+
+-- 3. Which branches have more cars than the average number of cars per branch?
+-- Demonstrates: Subquery, JOIN and GROUP BY
+
+SELECT
+    b.branch_id,
+    b.branch_name,
+    COUNT(ca.car_id) AS total_cars
+FROM Branches b
+JOIN Cars ca
+    ON b.branch_id = ca.branch_id
+GROUP BY
+    b.branch_id,
+    b.branch_name
+HAVING COUNT(ca.car_id) > (
+    SELECT AVG(car_count)
+    FROM (
+        SELECT COUNT(*) AS car_count
+        FROM Cars
+        GROUP BY branch_id
+    ) AS branch_cars
+)
+ORDER BY total_cars DESC;
+
+-- 4. Which rental had the highest payment amount?
+-- Demonstrates: Subquery and MAX
+
+SELECT
+    r.rental_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    p.amount AS payment_amount,
+    p.payment_method,
+    p.payment_status
+FROM Rentals r
+JOIN Customers c
+    ON r.customer_id = c.customer_id
+JOIN Payments p
+    ON r.rental_id = p.rental_id
+WHERE p.amount = (
+    SELECT MAX(amount)
+    FROM Payments
+);
+
+-- 5. Which rental services were selected more times than the average service selection count?
+-- Demonstrates: Subquery, GROUP BY and COUNT
+
+SELECT
+    rs.service_id,
+    rs.service_name,
+    COUNT(rsd.rental_id) AS selection_count
+FROM RentalServices rs
+JOIN RentalServiceDetails rsd
+    ON rs.service_id = rsd.service_id
+GROUP BY
+    rs.service_id,
+    rs.service_name
+HAVING COUNT(rsd.rental_id) > (
+    SELECT AVG(selection_count)
+    FROM (
+        SELECT COUNT(*) AS selection_count
+        FROM RentalServiceDetails
+        GROUP BY service_id
+    ) AS service_selections
+)
+ORDER BY selection_count DESC;
