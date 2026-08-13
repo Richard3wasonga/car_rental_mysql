@@ -253,3 +253,34 @@ HAVING COUNT(rsd.rental_id) > (
     ) AS service_selections
 )
 ORDER BY selection_count DESC;
+
+-- 17. Which customers have made at least one rental?
+-- Demonstrates: Correlated subquery and EXISTS
+
+SELECT
+    c.customer_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name
+FROM Customers c
+WHERE EXISTS (
+    SELECT 1
+    FROM Rentals r
+    WHERE r.customer_id = c.customer_id
+)
+ORDER BY c.customer_id;
+
+-- 18. Which maintenance records have a cost greater than the average maintenance cost for that car?
+-- Demonstrates: Correlated subquery
+
+SELECT
+    m.maintenance_id,
+    m.car_id,
+    m.service_date,
+    m.description,
+    m.cost
+FROM Maintenance m
+WHERE m.cost > (
+    SELECT AVG(m2.cost)
+    FROM Maintenance m2
+    WHERE m2.car_id = m.car_id
+)
+ORDER BY m.car_id, m.cost DESC;
