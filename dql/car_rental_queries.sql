@@ -133,3 +133,29 @@ FROM RentalServiceDetails rsd
 JOIN RentalServices rs
     ON rsd.service_id = rs.service_id
 ORDER BY rsd.rental_id, rs.service_name;
+
+-- ADVANCED DQL QUERIES
+
+-- 1. Which customers made more rentals than the average customer?
+-- Demonstrates: Subquery and GROUP BY
+
+SELECT
+    c.customer_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    COUNT(r.rental_id) AS total_rentals
+FROM Customers c
+JOIN Rentals r
+    ON c.customer_id = r.customer_id
+GROUP BY
+    c.customer_id,
+    c.first_name,
+    c.last_name
+HAVING COUNT(r.rental_id) > (
+    SELECT AVG(rental_count)
+    FROM (
+        SELECT COUNT(*) AS rental_count
+        FROM Rentals
+        GROUP BY customer_id
+    ) AS customer_rentals
+)
+ORDER BY total_rentals DESC;
