@@ -315,3 +315,41 @@ WHERE c.status = 'Available';
 SELECT *
 FROM available_cars_by_branch
 ORDER BY branch_name, category_name;
+
+
+
+-- 2: BRANCH RENTAL PERFORMANCE
+-- Purpose: Shows rental activity and payment amounts associated with each branch.
+
+CREATE OR REPLACE VIEW branch_rental_performance AS
+SELECT
+    b.branch_id,
+    b.branch_name,
+    b.city,
+    COUNT(DISTINCT r.rental_id) AS total_rentals,
+    COUNT(DISTINCT CASE
+        WHEN r.rental_status = 'Completed'
+        THEN r.rental_id
+    END) AS completed_rentals,
+    COUNT(DISTINCT CASE
+        WHEN r.rental_status = 'Active'
+        THEN r.rental_id
+    END) AS active_rentals,
+    COALESCE(SUM(p.amount), 0) AS total_payment_amount
+FROM Branches b
+LEFT JOIN Employees e
+    ON b.branch_id = e.branch_id
+LEFT JOIN Rentals r
+    ON e.employee_id = r.employee_id
+LEFT JOIN Payments p
+    ON r.rental_id = p.rental_id
+GROUP BY
+    b.branch_id,
+    b.branch_name,
+    b.city;
+
+
+-- Example query against the view
+SELECT *
+FROM branch_rental_performance
+ORDER BY total_payment_amount DESC;
