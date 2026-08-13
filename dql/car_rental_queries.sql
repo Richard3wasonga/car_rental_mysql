@@ -159,3 +159,30 @@ HAVING COUNT(r.rental_id) > (
     ) AS customer_rentals
 )
 ORDER BY total_rentals DESC;
+
+-- 2. Which cars were rented more times than the average number of rentals per car?
+-- Demonstrates: Subquery and GROUP BY
+
+SELECT
+    ca.car_id,
+    ca.registration_number,
+    ca.make,
+    ca.model,
+    COUNT(r.rental_id) AS total_rentals
+FROM Cars ca
+JOIN Rentals r
+    ON ca.car_id = r.car_id
+GROUP BY
+    ca.car_id,
+    ca.registration_number,
+    ca.make,
+    ca.model
+HAVING COUNT(r.rental_id) > (
+    SELECT AVG(rental_count)
+    FROM (
+        SELECT COUNT(*) AS rental_count
+        FROM Rentals
+        GROUP BY car_id
+    ) AS car_rentals
+)
+ORDER BY total_rentals DESC;
