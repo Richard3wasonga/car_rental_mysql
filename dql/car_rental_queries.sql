@@ -119,3 +119,17 @@ GROUP BY
     c.first_name,
     c.last_name
 ORDER BY r.rental_id;
+
+-- 6. What additional services were selected for each rental?
+-- Demonstrates: JOIN across Rentals, RentalServiceDetails and RentalServices
+
+SELECT
+    rsd.rental_id,
+    rs.service_name,
+    rsd.quantity,
+    rs.daily_price,
+    (rsd.quantity * rs.daily_price) AS service_total
+FROM RentalServiceDetails rsd
+JOIN RentalServices rs
+    ON rsd.service_id = rs.service_id
+ORDER BY rsd.rental_id, rs.service_name;
