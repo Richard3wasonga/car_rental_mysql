@@ -85,3 +85,19 @@ FROM Car_Categories cc
 JOIN Cars ca
     ON cc.category_id = ca.category_id
 ORDER BY cc.category_name, ca.registration_number;
+
+-- 4. What cars are available at each branch?
+-- Demonstrates: JOIN with WHERE
+
+SELECT
+    b.branch_name,
+    b.city,
+    ca.registration_number,
+    ca.make,
+    ca.model,
+    ca.status
+FROM Branches b
+JOIN Cars ca
+    ON b.branch_id = ca.branch_id
+WHERE ca.status = 'Available'
+ORDER BY b.branch_name, ca.registration_number;
