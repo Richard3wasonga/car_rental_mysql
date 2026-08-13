@@ -1,4 +1,8 @@
 USE driveease_rentals;
+
+
+-- Maintenance
+
 -- 1. How many maintenance records are there?
 -- Demonstrates: COUNT
 SELECT COUNT(*) AS total_maintenance_records
@@ -30,3 +34,24 @@ LIMIT 1;
 -- Demonstrates: AVG
 SELECT AVG(cost) AS average_maintenance_cost
 FROM Maintenance;
+
+
+-- CROSS-TABLE / BUSINESS QUESTIONS
+
+-- 1. What cars has each customer rented?
+-- Demonstrates: INNER JOIN across Customers, Rentals and Cars
+
+SELECT
+    c.customer_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    ca.registration_number,
+    ca.make,
+    ca.model,
+    r.rental_date,
+    r.rental_status
+FROM Customers c
+JOIN Rentals r
+    ON c.customer_id = r.customer_id
+JOIN Cars ca
+    ON r.car_id = ca.car_id
+ORDER BY c.customer_id, r.rental_date;
