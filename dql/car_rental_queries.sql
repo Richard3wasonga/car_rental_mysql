@@ -353,3 +353,34 @@ GROUP BY
 SELECT *
 FROM branch_rental_performance
 ORDER BY total_payment_amount DESC;
+
+
+
+-- 3: CAR MAINTENANCE SUMMARY
+-- Purpose: Helps fleet managers monitor maintenance history and maintenance costs for each vehicle.
+
+CREATE OR REPLACE VIEW car_maintenance_summary AS
+SELECT
+    c.car_id,
+    c.registration_number,
+    c.make,
+    c.model,
+    c.status,
+    COUNT(m.maintenance_id) AS maintenance_records,
+    COALESCE(SUM(m.cost), 0) AS total_maintenance_cost,
+    COALESCE(AVG(m.cost), 0) AS average_maintenance_cost
+FROM Cars c
+LEFT JOIN Maintenance m
+    ON c.car_id = m.car_id
+GROUP BY
+    c.car_id,
+    c.registration_number,
+    c.make,
+    c.model,
+    c.status;
+
+
+-- Example query against the view
+SELECT *
+FROM car_maintenance_summary
+ORDER BY total_maintenance_cost DESC;
