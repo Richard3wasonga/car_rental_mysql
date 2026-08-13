@@ -101,3 +101,21 @@ JOIN Cars ca
     ON b.branch_id = ca.branch_id
 WHERE ca.status = 'Available'
 ORDER BY b.branch_name, ca.registration_number;
+
+-- 5. What is the total payment amount associated with each rental?
+-- Demonstrates: JOIN and SUM
+
+SELECT
+    r.rental_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    SUM(p.amount) AS total_payment
+FROM Rentals r
+JOIN Customers c
+    ON r.customer_id = c.customer_id
+JOIN Payments p
+    ON r.rental_id = p.rental_id
+GROUP BY
+    r.rental_id,
+    c.first_name,
+    c.last_name
+ORDER BY r.rental_id;
