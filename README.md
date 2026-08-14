@@ -58,6 +58,9 @@ car_rental_mysql/
 ├── dql/
 │   └── car_rental_queries.sql
 │
+├── docs/
+│   └── DriveEase.png
+│
 └── README.md
 ```
 
@@ -73,14 +76,16 @@ car_rental_mysql/
 > [!IMPORTANT]
 > The scripts should be executed in the order **DDL → DML → DQL**.
 
+---
+
 ### Option 1: Using Visual Studio Code
 
 ### Recommended Extensions
 
-#### Steps
-
 - SQLTools
 - SQLTools MySQL/MariaDB Driver
+
+### Steps
 
 1. Clone the repository
 
@@ -137,7 +142,7 @@ Execute individual queries or the entire script to retrieve and analyze the data
 - MySQL Workbench
 - Git
 
-#### Steps
+### Steps
 
 1. Clone the repository
 
@@ -175,14 +180,14 @@ dql/car_rental_queries.sql
 
 # Database Schema
 
-The database consists of the following tables.
+The database consists of the following 10 tables.
 
 | Table | Description |
 |-------|-------------|
 | Customers | Stores customer information |
 | Branches | Company rental branches |
 | Employees | Employees assigned to branches |
-| CarCategories | Vehicle categories and daily rental rates |
+| Car_Categories | Vehicle categories and daily rental rates |
 | Cars | Vehicle fleet |
 | Rentals | Rental transactions |
 | Payments | Rental payment records |
@@ -199,7 +204,7 @@ The database includes the following relationships:
 |-------------|------|
 | Branches → Employees | One-to-Many |
 | Branches → Cars | One-to-Many |
-| CarCategories → Cars | One-to-Many |
+| Car_Categories → Cars | One-to-Many |
 | Customers → Rentals | One-to-Many |
 | Cars → Rentals | One-to-Many |
 | Employees → Rentals | One-to-Many |
@@ -207,60 +212,182 @@ The database includes the following relationships:
 | Cars → Maintenance | One-to-Many |
 | Rentals ↔ RentalServices | Many-to-Many |
 
+
+The Many-to-Many relationship between `Rentals` and `RentalServices` is implemented through the `RentalServiceDetails` junction table.
+
 ---
 
-# Database Features
+# Entity Relationship Diagram
+
+The following Entity Relationship Diagram (ERD) provides a visual representation of the DriveEase Rentals database schema and shows how the tables are connected through primary and foreign keys.
+
+![DriveEase Rentals Entity Relationship Diagram](docs/DriveEase.png)
+
+The ERD illustrates the relationships between customers, rentals, vehicles, branches, employees, payments, maintenance records, vehicle categories, and rental services.
+
+---
+
+# DDL — Database Structure
+
+The DDL script:
+
+```text
+ddl/car_rental_database.sql
+```
+
+defines the structure of the DriveEase Rentals database.
+
+It creates:
+
+* The `driveease_rentals` database
+* All 10 tables
+* Primary keys
+* Composite primary key
+* Foreign keys
+* Unique constraints
+* Check constraints
+* Referential actions
 
 ### Primary Keys
 
-Each major entity uses an AUTO_INCREMENT primary key.
-
-Example:
+Major entities use `AUTO_INCREMENT` primary keys.
 
 ```sql
 customer_id INT AUTO_INCREMENT PRIMARY KEY
 ```
 
----
-
 ### Composite Primary Key
 
-The database implements a composite primary key using the junction table:
+`RentalServiceDetails` uses:
 
 ```sql
 PRIMARY KEY (rental_id, service_id)
 ```
 
-This prevents duplicate service entries for the same rental.
+This prevents the same service from being added more than once to the same rental.
+
+### Referential Integrity
+
+Foreign keys connect related tables and ensure that referenced records exist.
+
+The schema uses:
+
+* `ON UPDATE CASCADE`
+* `ON DELETE CASCADE`
+* `ON DELETE RESTRICT`
+
+depending on the relationship.
 
 ---
 
-### Foreign Keys
+# DML — Sample Data
 
-The database uses foreign keys to maintain referential integrity.
+The DML script:
 
-Example:
-
-```sql
-CONSTRAINT fk_employee_branch
-FOREIGN KEY (branch_id)
-REFERENCES Branches(branch_id)
+```text
+dml/car_rental_data.sql
 ```
 
+populates the database with sample data representing realistic DriveEase Rentals operations.
+
+The data covers:
+
+* Branches
+* Car categories
+* Customers
+* Employees
+* Cars
+* Rental services
+* Rentals
+* Payments
+* Maintenance records
+* Rental-service selections
+
+The rental data includes different rental states:
+
+| Status      | Meaning                    |
+| ----------- | -------------------------- |
+| `Completed` | Rental has been completed  |
+| `Active`    | Rental is currently active |
+| `Cancelled` | Rental was cancelled       |
+
+The sample data also includes different payment methods and statuses, vehicle statuses, maintenance records, and optional rental services.
+
+This provides sufficient data for testing joins, aggregation, grouping, filtering, subqueries, and views.
+
 ---
 
-### Cascade Rules
+# DQL — Data Retrieval & Analysis
 
-The schema implements both:
+The DQL script:
 
-- ON UPDATE CASCADE
-- ON DELETE CASCADE
+```text
+dql/car_rental_queries.sql
+```
 
-where appropriate, while using
+contains queries for retrieving and analyzing information from the database.
 
-- ON DELETE RESTRICT
+The queries are divided into three levels.
 
-to prevent accidental deletion of important parent records.
+### Basic Queries
+
+Demonstrate:
+
+* `COUNT`
+* `SUM`
+* `AVG`
+* `GROUP BY`
+* `ORDER BY`
+* `LIMIT`
+
+Examples include determining the number of maintenance records and total maintenance expenditure.
+
+### Cross-Table / Business Queries
+
+Use joins between related tables to answer practical business questions, including:
+
+* What cars has each customer rented?
+* How many rentals has each employee processed?
+* What cars belong to each category?
+* What cars are available at each branch?
+* What is the total payment associated with each rental?
+* What additional services were selected for each rental?
+
+### Advanced Queries
+
+Use subqueries, including both scalar and correlated subqueries, together with grouping and aggregation to answer questions such as:
+
+* Which customers made more rentals than the average customer?
+* Which cars were rented more times than the average?
+* Which branches have more cars than the average branch?
+* Which rental had the highest payment?
+* Which rental services were selected more times than average?
+* Which cars have maintenance costs above the average for that car?
+
+---
+
+# Database Views
+
+The database includes three views designed to provide useful information to DriveEase managers and stakeholders.
+
+### `available_cars_by_branch`
+
+Provides information about vehicles currently available at each branch.
+
+### `branch_rental_performance`
+
+Provides a summary of rental activity and payment information for branches.
+
+### `car_maintenance_summary`
+
+Provides maintenance information for each vehicle, including:
+
+* Number of maintenance records
+* Total maintenance cost
+* Average maintenance cost
+
+These views simplify commonly required business reports without requiring managers to write complex joins and aggregation queries themselves.
+
 
 ---
 
@@ -269,7 +396,7 @@ to prevent accidental deletion of important parent records.
 | Category | Technology |
 |----------|------------|
 | Database | MySQL 8 |
-| SQL Language | DDL |
+| SQL Language | DDL, DML and DQL |
 | Development Environment | Visual Studio Code / MySQL Workbench |
 | Version Control | Git & GitHub |
 
