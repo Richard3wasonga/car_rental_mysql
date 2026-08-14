@@ -1,6 +1,6 @@
 # DriveEase Rentals Database
 
-> A relational MySQL database for **DriveEase Rentals**, a fictional car rental company. This project implements the database schema for managing customers, vehicles, branches, employees, rentals, payments, vehicle maintenance, and optional rental services.
+> A relational MySQL database for **DriveEase Rentals**, a fictional car rental company. The system manages customers, branches, employees, vehicles, rentals, payments, vehicle maintenance, and optional rental services.
 
 ---
 
@@ -8,20 +8,20 @@
 
 - Relational database design following normalization principles
 - 10 interconnected tables
-- AUTO_INCREMENT primary keys
-- Composite primary key using a junction table
-- One-to-Many relationships
-- Many-to-Many relationship implementation
-- Foreign key constraints with referential integrity
-- ON UPDATE CASCADE rules
-- ON DELETE CASCADE and ON DELETE RESTRICT actions
-- Unique constraints for important customer and vehicle identifiers
+- Primary and composite keys
+- One-to-Many and Many-to-Many relationships
+- Foreign key constraints and referential integrity
+- `ON UPDATE CASCADE`, `ON DELETE CASCADE` and `ON DELETE RESTRICT`
+- Unique constraints for important identifiers
+- Sample data for testing and analysis
+- Basic, cross-table, and advanced DQL queries
+- Management-oriented database views
 
 ---
 
 ## Database Overview
 
-The database supports the complete rental process, including:
+DriveEase Rentals supports the main operations of a car rental company:
 
 - Customer registration
 - Branch management
@@ -31,9 +31,18 @@ The database supports the complete rental process, including:
 - Vehicle rentals
 - Payment processing
 - Vehicle maintenance history
-- Additional rental services (GPS, Wi-Fi, Child Seat, etc.)
+- Additional rental services
+
+The database is organised into three main SQL layers:
+
+| Layer | Purpose |
+|-------|---------|
+| DDL | Creates the database structure |
+| DML | Populates the database with sample data |
+| DQL | Retrieves and analyzes data |
 
 ---
+
 
 ## Project Structure
 
@@ -46,27 +55,32 @@ car_rental_mysql/
 ├── dml/
 │   └── car_rental_data.sql
 │
+├── dql/
+│   └── car_rental_queries.sql
+│
 └── README.md
 ```
 
 ---
 
-# Setup & Installation
-
-## Option 1: Using Visual Studio Code
+## Setup & Installation
 
 ### Prerequisites
 
 - MySQL Server 8.0 or later
-- Visual Studio Code
 - Git
+
+> [!IMPORTANT]
+> The scripts should be executed in the order **DDL → DML → DQL**.
+
+### Option 1: Using Visual Studio Code
 
 ### Recommended Extensions
 
+#### Steps
+
 - SQLTools
 - SQLTools MySQL/MariaDB Driver
-
-### Installation
 
 1. Clone the repository
 
@@ -88,17 +102,34 @@ code .
 
 4. Connect SQLTools to your MySQL server.
 
-5. Open
+5. Open and execute the DDL script
 
 ```
 ddl/car_rental_database.sql
 ```
 
-6. Execute the script to create the database and all tables.
+This creates the `driveease_rentals` database, tables, keys, constraints, and relationships.
+
+
+6. Open and execute the DML script
+
+```
+dml/car_rental_data.sql
+```
+
+This populates the database with the sample data.
+
+7. Open and execute the DQL script
+
+```
+dql/car_rental_queries.sql
+```
+
+Execute individual queries or the entire script to retrieve and analyze the data.
 
 ---
 
-## Option 2: Using MySQL Workbench
+### Option 2: Using MySQL Workbench
 
 ### Prerequisites
 
@@ -106,7 +137,7 @@ ddl/car_rental_database.sql
 - MySQL Workbench
 - Git
 
-### Installation
+#### Steps
 
 1. Clone the repository
 
@@ -118,20 +149,27 @@ git clone https://github.com/Richard3wasonga/car_rental_mysql
 
 3. Connect to your MySQL server.
 
-4. Open
+4. Open and execute the DDL script
 
 ```
 ddl/car_rental_database.sql
 ```
 
-5. Execute the script.
+This creates the `driveease_rentals` database, tables, keys, constraints, and relationships.
 
-The script will automatically create:
+5. Open and execute the DML script
 
-- Database
-- Tables
-- Constraints
-- Relationships
+```
+dml/car_rental_data.sql
+```
+
+This populates the database with the sample data.
+
+6. Open and execute the DQL script
+
+```
+dql/car_rental_queries.sql
+```
 
 ---
 
