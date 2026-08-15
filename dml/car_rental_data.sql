@@ -180,6 +180,46 @@ VALUES
 
 SAVEPOINT cars_loaded;
 
+-- payment
+INSERT INTO
+    Payments (
+        rental_id,
+        payment_date,
+        amount,
+        payment_method,
+        payment_status
+    )
+SELECT
+    r.rental_id,
+    CASE
+        WHEN r.rental_status = 'Completed' THEN r.actual_return_date
+        WHEN r.rental_status = 'Active' THEN r.rental_date
+        ELSE r.rental_date
+    END,
+    (
+        DATEDIFF(r.expected_return_date, r.rental_date) * cc.daily_rate
+    ),
+    CASE
+        MOD(r.rental_id, 3)
+        WHEN 0 THEN 'Cash'
+        WHEN 1 THEN 'Card'
+        ELSE 'M-Pesa'
+    END,
+    CASE
+        WHEN r.rental_status = 'Completed' THEN 'Paid'
+        WHEN r.rental_status = 'Active'
+        AND MOD(r.rental_id, 2) = 0 THEN ' Paid '
+        WHEN r.rental_status = ' Active ' THEN ' Pending '
+        WHEN MOD(r.rental_id, 2) = 0 THEN ' Refunded '
+        ELSE ' Pending '
+    END
+FROM
+    Rentals r
+    JOIN Cars c ON r.car_id = c.car_id
+    JOIN Car_Categories cc ON c.category_id = cc.category_id;
+
+SAVEPOINT payments_loaded;
+
 -- Rental Service Details
 INSERT INTO
     RentalServiceDetails (rental_id, service_id, quantity)
