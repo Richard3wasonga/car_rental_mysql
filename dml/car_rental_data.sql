@@ -27,159 +27,6 @@ TRUNCATE TABLE Customers;
 SET
     FOREIGN_KEY_CHECKS = 1;
 
--- Maintenance
-INSERT INTO
-    Maintenance (
-        car_id,
-        service_date,
-        description,
-        cost,
-        mechanic_name
-    )
-VALUES
-    (
-        4,
-        '2025-01-20',
-        'Engine oil and oil filter replacement',
-        8500.00,
-        'Peter Mwangi'
-    ),
-    (
-        4,
-        '2025-01-21',
-        'Front brake pads and discs replaced',
-        18500.00,
-        'John Kamau'
-    ),
-    (
-        12,
-        '2025-02-05',
-        'Engine oil, oil filter and air filter replacement',
-        9500.00,
-        'Samuel Otieno'
-    ),
-    (
-        12,
-        '2025-02-06',
-        'Brake pads inspected and replaced',
-        12000.00,
-        'David Kariuki'
-    ),
-    (
-        16,
-        '2025-02-15',
-        'Engine service, oil change and filter replacement',
-        14500.00,
-        'Brian Mutiso'
-    ),
-    (
-        16,
-        '2025-02-16',
-        'Replacement of two worn tyres',
-        24000.00,
-        'James Mwangi'
-    ),
-    (
-        20,
-        '2025-02-25',
-        'Major engine service and fluid replacement',
-        32000.00,
-        'Joseph Kibet'
-    ),
-    (
-        20,
-        '2025-02-26',
-        'Brake pads and brake fluid replacement',
-        18000.00,
-        'Martin Rotich'
-    ),
-    (
-        29,
-        '2025-03-05',
-        'Engine oil and oil filter replacement',
-        9000.00,
-        'Victor Kariuki'
-    ),
-    (
-        29,
-        '2025-03-06',
-        'Brake pads and rear discs replaced',
-        21000.00,
-        'Susan Kemunto'
-    ),
-    (
-        6,
-        '2025-03-15',
-        'Engine service, filters and fluid inspection',
-        16000.00,
-        'Dennis Barasa'
-    ),
-    (
-        9,
-        '2025-03-22',
-        'Engine oil and oil filter replacement',
-        8500.00,
-        'Kevin Otieno'
-    ),
-    (
-        34,
-        '2025-04-02',
-        'Replacement of worn suspension components',
-        27500.00,
-        'Peter Omondi'
-    ),
-    (
-        32,
-        '2025-04-10',
-        'Brake pads inspected and replaced',
-        13500.00,
-        'Eric Odhiambo'
-    ),
-    (
-        2,
-        '2025-04-18',
-        'Engine oil and oil filter replacement',
-        9000.00,
-        'Samuel Kiptoo'
-    ),
-    (
-        27,
-        '2025-05-01',
-        'Replacement of two worn tyres',
-        22000.00,
-        'Martin Rotich'
-    ),
-    (
-        11,
-        '2025-05-12',
-        'Engine service, filters and fluid inspection',
-        15000.00,
-        'Lilian Atieno'
-    ),
-    (
-        10,
-        '2025-05-20',
-        'Brake pads and brake fluid replacement',
-        12500.00,
-        'David Musyoka'
-    ),
-    (
-        18,
-        '2025-06-03',
-        'Engine oil and oil filter replacement',
-        8000.00,
-        'Grace Akoth'
-    ),
-    (
-        22,
-        '2025-06-15',
-        'Routine inspection and fluid checks',
-        6500.00,
-        'Eric Kariuki'
-    );
-
-SAVEPOINT cars_loaded;
-
 -- Populate Rental Services
 INSERT INTO
     RentalServices (service_name, daily_price)
@@ -571,23 +418,151 @@ VALUES
         'Completed'
     ),
     -- ACTIVE
-    (41, 2, 1, '2025-08-01', '2025-08-06', NULL, 'Active'),
-    (42, 8, 3, '2025-08-02', '2025-08-07', NULL, 'Active'),
-    (43, 12, 5, '2025-08-03', '2025-08-08', NULL, 'Active'),
-    (44, 19, 7, '2025-08-04', '2025-08-09', NULL, 'Active'),
-    (45, 27, 9, '2025-08-05', '2025-08-10', NULL, 'Active'),
-    (46, 34, 11, '2025-08-06', '2025-08-11', NULL, 'Active'),
-    (47, 39, 13, '2025-08-07', '2025-08-12', NULL, 'Active'),
-    (48, 5, 15, '2025-08-08', '2025-08-13', NULL, 'Active'),
-    (49, 10, 17, '2025-08-09', '2025-08-14', NULL, 'Active'),
-    (50, 14, 19, '2025-08-10', '2025-08-15', NULL, 'Active'),
-    (5, 22, 4, '2025-08-11', '2025-08-16', NULL, 'Active'),
-    (9, 30, 6, '2025-08-12', '2025-08-17', NULL, 'Active'),
-    (14, 33, 8, '2025-08-13', '2025-08-18', NULL, 'Active'),
-    (18, 37, 10, '2025-08-14', '2025-08-19', NULL, 'Active'),
-    (24, 40, 12, '2025-08-15', '2025-08-20', NULL, 'Active'),
+    (
+        41,
+        2,
+        1,
+        '2025-08-01',
+        '2025-08-06',
+        NULL,
+        'Active'
+    ),
+    (
+        42,
+        8,
+        3,
+        '2025-08-02',
+        '2025-08-07',
+        NULL,
+        'Active'
+    ),
+    (
+        43,
+        12,
+        5,
+        '2025-08-03',
+        '2025-08-08',
+        NULL,
+        'Active'
+    ),
+    (
+        44,
+        19,
+        7,
+        '2025-08-04',
+        '2025-08-09',
+        NULL,
+        'Active'
+    ),
+    (
+        45,
+        27,
+        9,
+        '2025-08-05',
+        '2025-08-10',
+        NULL,
+        'Active'
+    ),
+    (
+        46,
+        34,
+        11,
+        '2025-08-06',
+        '2025-08-11',
+        NULL,
+        'Active'
+    ),
+    (
+        47,
+        39,
+        13,
+        '2025-08-07',
+        '2025-08-12',
+        NULL,
+        'Active'
+    ),
+    (
+        48,
+        5,
+        15,
+        '2025-08-08',
+        '2025-08-13',
+        NULL,
+        'Active'
+    ),
+    (
+        49,
+        10,
+        17,
+        '2025-08-09',
+        '2025-08-14',
+        NULL,
+        'Active'
+    ),
+    (
+        50,
+        14,
+        19,
+        '2025-08-10',
+        '2025-08-15',
+        NULL,
+        'Active'
+    ),
+    (
+        5,
+        22,
+        4,
+        '2025-08-11',
+        '2025-08-16',
+        NULL,
+        'Active'
+    ),
+    (
+        9,
+        30,
+        6,
+        '2025-08-12',
+        '2025-08-17',
+        NULL,
+        'Active'
+    ),
+    (
+        14,
+        33,
+        8,
+        '2025-08-13',
+        '2025-08-18',
+        NULL,
+        'Active'
+    ),
+    (
+        18,
+        37,
+        10,
+        '2025-08-14',
+        '2025-08-19',
+        NULL,
+        'Active'
+    ),
+    (
+        24,
+        40,
+        12,
+        '2025-08-15',
+        '2025-08-20',
+        NULL,
+        'Active'
+    ),
     -- CANCELLED
-    (6, 3, 2, '2025-06-01', '2025-06-05', NULL, 'Cancelled'),
+    (
+        6,
+        3,
+        2,
+        '2025-06-01',
+        '2025-06-05',
+        NULL,
+        'Cancelled'
+    ),
     (
         12,
         15,
@@ -666,6 +641,174 @@ FROM
     JOIN Car_Categories cc ON c.category_id = cc.category_id;
 
 SAVEPOINT payments_loaded;
+
+-- Maintenance records are based on vehicle mileage and current maintenance status
+INSERT INTO
+    Maintenance (
+        car_id,
+        service_date,
+        description,
+        cost,
+        mechanic_name
+    )
+VALUES
+    -- Car 4: Subaru Forester 
+    (
+        4,
+        '2025-01-20',
+        'Engine oil and oil filter replacement',
+        8500.00,
+        'Peter Mwangi'
+    ),
+    (
+        4,
+        '2025-01-21',
+        'Front brake pads and discs replaced',
+        18500.00,
+        'John Kamau'
+    ),
+    -- Car 12: Toyota Premio - 62,000 km 
+    (
+        12,
+        '2025-02-05',
+        'Engine oil, oil filter and air filter replacement',
+        9500.00,
+        'Samuel Otieno'
+    ),
+    (
+        12,
+        '2025-02-06',
+        'Brake pads inspected and replaced',
+        12000.00,
+        'David Kariuki'
+    ),
+    -- Car 16: Ford Ranger - 45,000 km 
+    (
+        16,
+        '2025-02-15',
+        'Engine service, oil change and filter replacement',
+        14500.00,
+        'Brian Mutiso'
+    ),
+    (
+        16,
+        '2025-02-16',
+        'Replacement of two worn tyres',
+        24000.00,
+        'James Mwangi'
+    ),
+    -- Car 20: Toyota Land Cruiser - 75,000 km 
+    (
+        20,
+        '2025-02-25',
+        'Major engine service and fluid replacement',
+        32000.00,
+        'Joseph Kibet'
+    ),
+    (
+        20,
+        '2025-02-26',
+        'Brake pads and brake fluid replacement',
+        18000.00,
+        'Martin Rotich'
+    ),
+    -- Car 29: Ford Everest - 68,000 km 
+    (
+        29,
+        '2025-03-05',
+        'Engine oil and oil filter replacement',
+        9000.00,
+        'Victor Kariuki'
+    ),
+    (
+        29,
+        '2025-03-06',
+        'Brake pads and rear discs replaced',
+        21000.00,
+        'Susan Kemunto'
+    ),
+    -- Car 6: Isuzu D-Max - 54,000 km 
+    (
+        6,
+        '2025-03-15',
+        'Engine service, filters and fluid inspection',
+        16000.00,
+        'Dennis Barasa'
+    ),
+    -- Car 9: Toyota Hilux - 51,000 km 
+    (
+        9,
+        '2025-03-22',
+        'Engine oil and oil filter replacement',
+        8500.00,
+        'Kevin Otieno'
+    ),
+    -- Car 34: Toyota Prado - 51,000 km 
+    (
+        34,
+        '2025-04-02',
+        'Replacement of worn suspension components',
+        27500.00,
+        'Peter Omondi'
+    ),
+    -- Car 32: Toyota Fielder - 47,000 km 
+    (
+        32,
+        '2025-04-10',
+        'Brake pads inspected and replaced',
+        13500.00,
+        'Eric Odhiambo'
+    ),
+    -- Car 2: Toyota Prado - 47,000 km 
+    (
+        2,
+        '2025-04-18',
+        'Engine oil and oil filter replacement',
+        9000.00,
+        'Samuel Kiptoo'
+    ),
+    -- Car 27: Toyota Fortuner - 47,000 km 
+    (
+        27,
+        '2025-05-01',
+        'Replacement of two worn tyres',
+        22000.00,
+        'Martin Rotich'
+    ),
+    -- Car 11: Toyota RAV4 - 46,000 km 
+    (
+        11,
+        '2025-05-12',
+        'Engine service, filters and fluid inspection',
+        15000.00,
+        'Lilian Atieno'
+    ),
+    -- Car 10: Toyota Hilux - 51,000 km 
+    (
+        10,
+        '2025-05-20',
+        'Brake pads and brake fluid replacement',
+        12500.00,
+        'David Musyoka'
+    ),
+    -- Car 18: Nissan X-Trail - 42,000 km 
+    (
+        18,
+        '2025-06-03',
+        'Engine oil and oil filter replacement',
+        8000.00,
+        'Grace Akoth'
+    ),
+    -- Car 22: Mazda Axela - 39,000 km 
+    (
+        22,
+        '2025-06-15',
+        'Routine inspection and fluid checks',
+        6500.00,
+        'Eric Kariuki'
+    );
+
+SAVEPOINT maintenance_loaded;
 
 -- Rental Service Details
 INSERT INTO
