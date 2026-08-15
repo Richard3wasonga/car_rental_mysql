@@ -27,6 +27,206 @@ TRUNCATE TABLE Customers;
 SET
     FOREIGN_KEY_CHECKS = 1;
 
+-- Employees
+INSERT INTO
+    Employees (
+        first_name,
+        last_name,
+        email,
+        phone,
+        job_title,
+        hire_date,
+        branch_id
+    )
+VALUES
+    -- Nairobi CBD Branch (Branch ID: 1)
+    (
+        'James',
+        'Mwangi',
+        'james.mwangi@driveease.co.ke',
+        '+254711000001',
+        'Branch Manager',
+        '2023-01-15',
+        1
+    ),
+    (
+        'Mercy',
+        'Wanjiku',
+        'mercy.wanjiku@driveease.co.ke',
+        '+254711000002',
+        'Rental Officer',
+        '2023-03-10',
+        1
+    ),
+    (
+        'Kevin',
+        'Otieno',
+        'kevin.otieno@driveease.co.ke',
+        '+254711000003',
+        'Customer Service Officer',
+        '2023-04-21',
+        1
+    ),
+    (
+        'Brenda',
+        'Mutheu',
+        'brenda.mutheu@driveease.co.ke',
+        '+254711000004',
+        'Cashier',
+        '2023-05-18',
+        1
+    ),
+    (
+        'Victor',
+        'Kariuki',
+        'victor.kariuki@driveease.co.ke',
+        '+254711000005',
+        'Fleet Manager',
+        '2022-11-08',
+        1
+    ),
+    (
+        'Alice',
+        'Njeri',
+        'alice.njeri@driveease.co.ke',
+        '+254711000006',
+        'Rental Officer',
+        '2024-01-12',
+        1
+    ),
+    -- Westlands Branch (Branch ID: 2)
+    (
+        'Brian',
+        'Maina',
+        'brian.maina@driveease.co.ke',
+        '+254711000007',
+        'Branch Manager',
+        '2023-02-01',
+        2
+    ),
+    (
+        'Faith',
+        'Chebet',
+        'faith.chebet@driveease.co.ke',
+        '+254711000008',
+        'Rental Officer',
+        '2023-06-14',
+        2
+    ),
+    (
+        'Samuel',
+        'Kiptoo',
+        'samuel.kiptoo@driveease.co.ke',
+        '+254711000009',
+        'Customer Service Officer',
+        '2023-07-09',
+        2
+    ),
+    (
+        'Joy',
+        'Achieng',
+        'joy.achieng@driveease.co.ke',
+        '+254711000010',
+        'Cashier',
+        '2024-02-03',
+        2
+    ),
+    -- Mombasa Branch (Branch ID: 3)
+    (
+        'David',
+        'Musyoka',
+        'david.musyoka@driveease.co.ke',
+        '+254711000011',
+        'Branch Manager',
+        '2022-12-18',
+        3
+    ),
+    (
+        'Lilian',
+        'Atieno',
+        'lilian.atieno@driveease.co.ke',
+        '+254711000012',
+        'Rental Officer',
+        '2023-08-11',
+        3
+    ),
+    (
+        'Dennis',
+        'Barasa',
+        'dennis.barasa@driveease.co.ke',
+        '+254711000013',
+        'Customer Service Officer',
+        '2023-09-06',
+        3
+    ),
+    (
+        'Susan',
+        'Kemunto',
+        'susan.kemunto@driveease.co.ke',
+        '+254711000014',
+        'Fleet Manager',
+        '2023-01-28',
+        3
+    ),
+    -- Kisumu Branch (Branch ID: 4)
+    (
+        'Peter',
+        'Omondi',
+        'peter.omondi@driveease.co.ke',
+        '+254711000015',
+        'Branch Manager',
+        '2022-10-25',
+        4
+    ),
+    (
+        'Grace',
+        'Akoth',
+        'grace.akoth@driveease.co.ke',
+        '+254711000016',
+        'Rental Officer',
+        '2023-05-22',
+        4
+    ),
+    (
+        'Eric',
+        'Odhiambo',
+        'eric.odhiambo@driveease.co.ke',
+        '+254711000017',
+        'Customer Service Officer',
+        '2024-03-16',
+        4
+    ),
+    -- Nakuru Branch (Branch ID: 5)
+    (
+        'Joseph',
+        'Kibet',
+        'joseph.kibet@driveease.co.ke',
+        '+254711000018',
+        'Branch Manager',
+        '2023-02-27',
+        5
+    ),
+    (
+        'Purity',
+        'Chepkemoi',
+        'purity.chepkemoi@driveease.co.ke',
+        '+254711000019',
+        'Rental Officer',
+        '2023-07-20',
+        5
+    ),
+    (
+        'Martin',
+        'Rotich',
+        'martin.rotich@driveease.co.ke',
+        '+254711000020',
+        'Fleet Manager',
+        '2024-01-30',
+        5
+    );
+
+SAVEPOINT employees_loaded;
+
 -- Populate Cars
 INSERT INTO
     Cars (
