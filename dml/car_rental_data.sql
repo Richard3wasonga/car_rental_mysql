@@ -27,6 +27,45 @@ TRUNCATE TABLE Customers;
 SET
     FOREIGN_KEY_CHECKS = 1;
 
+START TRANSACTION;
+
+-- Branches
+INSERT INTO
+    Branches (branch_name, city, address, phone)
+VALUES
+    (
+        'Nairobi CBD Branch',
+        'Nairobi',
+        'Moi Avenue, Nairobi',
+        '+254700100001'
+    ),
+    (
+        'Westlands Branch',
+        'Nairobi',
+        'Westlands Road, Nairobi',
+        '+254700100002'
+    ),
+    (
+        'Mombasa Branch',
+        'Mombasa',
+        'Nkrumah Road, Mombasa',
+        '+254700100003'
+    ),
+    (
+        'Kisumu Branch',
+        'Kisumu',
+        'Oginga Odinga Street, Kisumu',
+        '+254700100004'
+    ),
+    (
+        'Nakuru Branch',
+        'Nakuru',
+        'Kenyatta Avenue, Nakuru',
+        '+254700100005'
+    );
+
+SAVEPOINT branches_loaded;
+
 -- Car Categories
 INSERT INTO
     Car_Categories (category_name, daily_rate)
