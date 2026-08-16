@@ -1,6 +1,6 @@
 # DriveEase Rentals Database
 
-> A relational MySQL database for **DriveEase Rentals**, a fictional car rental company. The system manages customers, branches, employees, vehicles, rentals, payments, vehicle maintenance, and optional rental services.
+> This database models **DriveEase Rentals**, a fictional car rental company. It manages customers, branches, employees, vehicles, rentals, payments, vehicle maintenance, and additional rental services while helping the company track rental transactions, monitor vehicle availability, and analyze business operations.
 
 ---
 
@@ -402,19 +402,22 @@ These views simplify commonly required business reports without requiring manage
 
 ---
 
-## Authors
+## Team
 
-- **Megan Philister** *(Group Leader)*
-- Joel Ndung'u
-- Nashaa Ndamu
-- Ashley Mwanza
-- Eric Kabui
-- Fred Nyaga
-- Eric Mwendwa
-- Zuwena Kisya
-- Richard Wasonga
-- Melissa Wanjiru
-- Andreas Muhavi
+| Name            | GitHub username     | Role on this project                                                              |
+| ----------------| --------------------| --------------------------------------------------------------------------------- |
+| Megan Philister | [@username]         | Group Leader, No contribution yet                                                 |
+| Joel Ndung'u    | Joexvs              | Employees table                                                                   |
+| Nashaa Ndamu    | [@username]         | No contribution yet                                                               |
+| Ashley Mwanza   | httpsxash           | Maintenance table and seed data                                                   |
+| Eric Kabui      | erickabui52-pixel   | No contribution yet                                                               |
+| Fred Nyaga      | [@username]         | No contribution yet                                                               |
+| Eric Mwendwa    | Ericmwendwa99-alt   | Cars table                                                                        |
+| Zuwena Kisya    | [@username]         | No contribution yet                                                               |
+| Melissa Wanjiru | lisamelly3226-ai    | Payments table                                                                    |
+| Andreas Muhavi  | [@username]         | No contribution yet                                                               |
+| Richard Wasonga | Richard3wasonga     | DQL (cross-table and advanced queries), views, DML, schema integration and testing|
+
 
 ---
 
