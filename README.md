@@ -391,6 +391,19 @@ These views simplify commonly required business reports without requiring manage
 
 ---
 
+## Assumptions & Design Decisions
+
+* Each customer can have multiple rentals, while each rental is linked to one customer and one vehicle, allowing the company to maintain a clear record of who rented which vehicle and when.
+* Each vehicle belongs to one branch and one car category so that the company can track where vehicles are located and classify them by rental category and rate.
+* A rental can include multiple additional services, and each service can be used across multiple rentals. `RentalServiceDetails` is therefore used as a junction table to represent this many-to-many relationship.
+* `RentalServiceDetails` uses a composite primary key (`rental_id`, `service_id`) to prevent the same service from being added more than once to the same rental.
+* Maintenance records are linked directly to vehicles because a vehicle can undergo multiple maintenance activities over its lifetime, creating a maintenance history for each vehicle.
+* Foreign keys are used to maintain relationships and prevent records from referencing entities that do not exist.
+* `ON UPDATE CASCADE`, `ON DELETE CASCADE`, and `ON DELETE RESTRICT` are applied where appropriate to maintain referential integrity while preventing or allowing related records to be removed based on the relationship.
+* Sample data was designed to represent different rental, payment, vehicle, and maintenance scenarios so that the database can be meaningfully tested using joins, aggregation, subqueries, and views.
+
+---
+
 ## Technologies Used
 
 | Category | Technology |
@@ -411,7 +424,7 @@ These views simplify commonly required business reports without requiring manage
 | Nashaa Ndamu    | [@username]         | No contribution yet                                                               |
 | Ashley Mwanza   | httpsxash           | Maintenance table and seed data                                                   |
 | Eric Kabui      | erickabui52-pixel   | No contribution yet                                                               |
-| Fred Nyaga      | [@username]         | No contribution yet                                                               |
+| Fred Nyaga      | destroitramon       | No contribution yet                                                               |
 | Eric Mwendwa    | Ericmwendwa99-alt   | Cars table                                                                        |
 | Zuwena Kisya    | [@username]         | No contribution yet                                                               |
 | Melissa Wanjiru | lisamelly3226-ai    | Payments table                                                                    |
