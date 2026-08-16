@@ -27,6 +27,19 @@ TRUNCATE TABLE Customers;
 SET
     FOREIGN_KEY_CHECKS = 1;
 
+-- Car Categories
+INSERT INTO
+    Car_Categories (category_name, daily_rate)
+VALUES
+    ('Economy', 2500.00),
+    ('Sedan', 4000.00),
+    ('SUV', 7000.00),
+    ('Luxury', 15000.00),
+    ('Pickup', 8000.00),
+    ('Van', 9000.00);
+
+SAVEPOINT car_categories_loaded;
+
 -- Customers
 INSERT INTO
     Customers (
