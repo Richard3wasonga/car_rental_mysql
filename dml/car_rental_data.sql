@@ -27,6 +27,621 @@ TRUNCATE TABLE Customers;
 SET
     FOREIGN_KEY_CHECKS = 1;
 
+START TRANSACTION;
+
+-- Branches
+INSERT INTO
+    Branches (branch_name, city, address, phone)
+VALUES
+    (
+        'Nairobi CBD Branch',
+        'Nairobi',
+        'Moi Avenue, Nairobi',
+        '+254700100001'
+    ),
+    (
+        'Westlands Branch',
+        'Nairobi',
+        'Westlands Road, Nairobi',
+        '+254700100002'
+    ),
+    (
+        'Mombasa Branch',
+        'Mombasa',
+        'Nkrumah Road, Mombasa',
+        '+254700100003'
+    ),
+    (
+        'Kisumu Branch',
+        'Kisumu',
+        'Oginga Odinga Street, Kisumu',
+        '+254700100004'
+    ),
+    (
+        'Nakuru Branch',
+        'Nakuru',
+        'Kenyatta Avenue, Nakuru',
+        '+254700100005'
+    );
+
+SAVEPOINT branches_loaded;
+
+-- Car Categories
+INSERT INTO
+    Car_Categories (category_name, daily_rate)
+VALUES
+    ('Economy', 2500.00),
+    ('Sedan', 4000.00),
+    ('SUV', 7000.00),
+    ('Luxury', 15000.00),
+    ('Pickup', 8000.00),
+    ('Van', 9000.00);
+
+SAVEPOINT car_categories_loaded;
+
+-- Customers
+INSERT INTO
+    Customers (
+        first_name,
+        last_name,
+        email,
+        phone,
+        national_id,
+        drivers_license_no,
+        address,
+        date_registered
+    )
+VALUES
+    (
+        'John',
+        'Kamau',
+        'john.kamau@email.com',
+        '+254700000001',
+        '30000001',
+        'DL100001',
+        'Kilimani,
+Nairobi',
+        '2025-01-05'
+    ),
+    (
+        'Mary',
+        'Achieng',
+        'mary.achieng@email.com',
+        '+254700000002',
+        '30000002',
+        'DL100002',
+        'Kisumu
+',
+        '2025-01-08'
+    ),
+    (
+        'Brian',
+        'Otieno',
+        'brian.otieno@email.com',
+        '+254700000003',
+        '30000003',
+        'DL100003',
+        'Kisumu',
+        '
+2025-01-12'
+    ),
+    (
+        'Faith',
+        'Wanjiku',
+        'faith.wanjiku@email.com',
+        '+254700000004',
+        '30000004',
+        'DL100004',
+        'Westlan
+ds, Nairobi',
+        '2025-01-18'
+    ),
+    (
+        'Kevin',
+        'Mutiso',
+        'kevin.mutiso@email.com',
+        '+254700000005',
+        '30000005',
+        'DL100005',
+        'Machako
+s',
+        '2025-01-22'
+    ),
+    (
+        'Grace',
+        'Atieno',
+        'grace.atieno@email.com',
+        '+254700000006',
+        '30000006',
+        'DL100006',
+        'Kisumu',
+        '
+2025-01-28'
+    ),
+    (
+        'Daniel',
+        'Kiptoo',
+        'daniel.kiptoo@email.com',
+        '+254700000007',
+        '30000007',
+        'DL100007',
+        'Eldoret',
+        '2025-02-02'
+    ),
+    (
+        'Lilian',
+        'Chebet',
+        'lilian.chebet@email.com',
+        '+254700000008',
+        '30000008',
+        'DL100008',
+        'Eldoret',
+        '
+2025-02-06'
+    ),
+    (
+        'Peter',
+        'Mwangi',
+        'peter.mwangi@email.com',
+        '+254700000009',
+        '30000009',
+        'DL100009',
+        'Nakur
+u',
+        '2025-02-10'
+    ),
+    (
+        'Joy',
+        'Naliaka',
+        'joy.naliaka@email.com',
+        '+254700000010',
+        '30000010',
+        'DL100010',
+        'Bungoma',
+        '2
+025-02-14'
+    ),
+    (
+        'Samuel',
+        'Omondi',
+        'samuel.omondi@email.com',
+        '+254700000011',
+        '30000011',
+        'DL100011',
+        'Kis
+umu',
+        '2025-02-20'
+    ),
+    (
+        'Mercy',
+        'Koech',
+        'mercy.koech@email.com',
+        '+254700000012',
+        '30000012',
+        'DL100012',
+        'Kericho',
+        '
+2025-02-24'
+    ),
+    (
+        'James',
+        'Maina',
+        'james.maina@email.com',
+        '+254700000013',
+        '30000013',
+        'DL100013',
+        'Nairobi',
+        '
+2025-03-01'
+    ),
+    (
+        'Esther',
+        'Nyambura',
+        'esther.nyambura@email.com',
+        '+254700000014',
+        '30000014',
+        'DL100014',
+        '
+Kiambu',
+        '2025-03-05'
+    ),
+    (
+        'David',
+        'Musyoka',
+        'david.musyoka@email.com',
+        '+254700000015',
+        '30000015',
+        'DL100015',
+        'Kitui
+',
+        '2025-03-09'
+    ),
+    (
+        'Susan',
+        'Kemunto',
+        'susan.kemunto@email.com',
+        '+254700000016',
+        '30000016',
+        'DL100016',
+        'Kisii
+',
+        '2025-03-14'
+    ),
+    (
+        'Eric',
+        'Kariuki',
+        'eric.kariuki@email.com',
+        '+254700000017',
+        '30000017',
+        'DL100017',
+        'Thika',
+        '2025-
+03-18'
+    ),
+    (
+        'Alice',
+        'Muthoni',
+        'alice.muthoni@email.com',
+        '+254700000018',
+        '30000018',
+        'DL100018',
+        'Nyeri',
+        '
+2025-03-22'
+    ),
+    (
+        'Joseph',
+        'Wafula',
+        'joseph.wafula@email.com',
+        '+254700000019',
+        '30000019',
+        'DL100019',
+        'Kitale',
+        '2025-03-27'
+    ),
+    (
+        'Ann',
+        'Chepkemoi',
+        'ann.chepkemoi@email.com',
+        '+254700000020',
+        '30000020',
+        'DL100020',
+        'Na
+kuru',
+        '2025-04-02'
+    ),
+    (
+        'George',
+        'Muriithi',
+        'george.muriithi@email.com',
+        '+254700000021',
+        '30000021',
+        'DL100021',
+        'Kia
+mbu',
+        '2025-04-05'
+    ),
+    (
+        'Janet',
+        'Akoth',
+        'janet.akoth@email.com',
+        '+254700000022',
+        '30000022',
+        'DL100022',
+        'Siaya',
+        '2025
+-04-09'
+    ),
+    (
+        'Paul',
+        'Kibet',
+        'paul.kibet@email.com',
+        '+254700000023',
+        '30000023',
+        'DL100023',
+        'Eldoret',
+        '2025-
+04-13'
+    ),
+    (
+        'Brenda',
+        'Anyango',
+        'brenda.anyango@email.com',
+        '+254700000024',
+        '30000024',
+        'DL100024',
+        'Ki
+sumu',
+        '2025-04-18'
+    ),
+    (
+        'Michael',
+        'Njoroge',
+        'michael.njoroge@email.com',
+        '+254700000025',
+        '30000025',
+        'DL100025',
+        'R
+uiru',
+        '2025-04-22'
+    ),
+    (
+        'Cynthia',
+        'Mutheu',
+        'cynthia.mutheu@email.com',
+        '+254700000026',
+        '30000026',
+        'DL100026',
+        'M
+achakos',
+        '2025-04-27'
+    ),
+    (
+        'Dennis',
+        'Barasa',
+        'dennis.barasa@email.com',
+        '+254700000027',
+        '30000027',
+        'DL100027',
+        'Bungo
+ma',
+        '2025-05-02'
+    ),
+    (
+        'Purity',
+        'Jepkosgei',
+        'purity.jepkosgei@email.com',
+        '+254700000028',
+        '30000028',
+        'DL100028',
+        'El
+doret',
+        '2025-05-06'
+    ),
+    (
+        'Victor',
+        'Odhiambo',
+        'victor.odhiambo@email.com',
+        '+254700000029',
+        '30000029',
+        'DL100029',
+        'H
+oma Bay',
+        '2025-05-10'
+    ),
+    (
+        'Sharon',
+        'Kendi',
+        'sharon.kendi@email.com',
+        '+254700000030',
+        '30000030',
+        'DL100030',
+        'Meru',
+        '2
+025-05-15'
+    ),
+    (
+        'Ian',
+        'Mwenda',
+        'ian.mwenda@email.com',
+        '+254700000031',
+        '30000031',
+        'DL100031',
+        'Meru',
+        '20
+25-05-19'
+    ),
+    (
+        'Irene',
+        'Cherono',
+        'irene.cherono@email.com',
+        '+254700000032',
+        '30000032',
+        'DL100032',
+        'Kerich
+o',
+        '2025-05-24'
+    ),
+    (
+        'Mark',
+        'Owino',
+        'mark.owino@email.com',
+        '+254700000033',
+        '30000033',
+        'DL100033',
+        'Migori',
+        '20
+25-05-28'
+    ),
+    (
+        'Naomi',
+        'Wairimu',
+        'naomi.wairimu@email.com',
+        '+254700000034',
+        '30000034',
+        'DL100034',
+        'Kia
+mbu',
+        '2025-06-03'
+    ),
+    (
+        'Chris',
+        'Rotich',
+        'chris.rotich@email.com',
+        '+254700000035',
+        '30000035',
+        'DL100035',
+        'Bomet',
+        '20
+25-06-08'
+    ),
+    (
+        'Vivian',
+        'Nyaboke',
+        'vivian.nyaboke@email.com',
+        '+254700000036',
+        '30000036',
+        'DL100036',
+        'Kisii',
+        '2025-06-12'
+    ),
+    (
+        'Allan',
+        'Kiprotich',
+        'allan.kiprotich@email.com',
+        '+254700000037',
+        '30000037',
+        'DL100037',
+        'Eldor
+et',
+        '2025-06-17'
+    ),
+    (
+        'Judith',
+        'Wambui',
+        'judith.wambui@email.com',
+        '+254700000038',
+        '30000038',
+        'DL100038',
+        'Nairo
+bi',
+        '2025-06-21'
+    ),
+    (
+        'Steve',
+        'Gitau',
+        'steve.gitau@email.com',
+        '+254700000039',
+        '30000039',
+        'DL100039',
+        'Naivasha',
+        '2
+025-06-25'
+    ),
+    (
+        'Diana',
+        'Chepkorir',
+        'diana.chepkorir@email.com',
+        '+254700000040',
+        '30000040',
+        'DL100040',
+        'Na
+kuru',
+        '2025-06-30'
+    ),
+    (
+        'Fred',
+        'Mutua',
+        'fred.mutua@email.com',
+        '+254700000041',
+        '30000041',
+        'DL100041',
+        'Machakos',
+        '
+2025-07-04'
+    ),
+    (
+        'Lucy',
+        'Akinyi',
+        'lucy.akinyi@email.com',
+        '+254700000042',
+        '30000042',
+        'DL100042',
+        'Kisumu',
+        '202
+5-07-08'
+    ),
+    (
+        'Collins',
+        'Karanja',
+        'collins.karanja@email.com',
+        '+254700000043',
+        '30000043',
+        'DL100043',
+        'Kiam
+bu',
+        '2025-07-12'
+    ),
+    (
+        'Beatrice',
+        'Chepkoech',
+        'beatrice.chepkoech@email.com',
+        '+254700000044',
+        '30000044',
+        'DL100
+044',
+        'Kericho',
+        '2025-07-17'
+    ),
+    (
+        'Patrick',
+        'Ochieng',
+        'patrick.ochieng@email.com',
+        '+254700000045',
+        '30000045',
+        'DL100045',
+        'Siay
+a',
+        '2025-07-22'
+    ),
+    (
+        'Caroline',
+        'Mbithe',
+        'caroline.mbithe@email.com',
+        '+254700000046',
+        '30000046',
+        'DL100046',
+        'Kit
+ui',
+        '2025-07-26'
+    ),
+    (
+        'Kennedy',
+        'Mbugua',
+        'kennedy.mbugua@email.com',
+        '+254700000047',
+        '30000047',
+        'DL100047',
+        '
+Nyeri',
+        '2025-07-30'
+    ),
+    (
+        'Agnes',
+        'Jeruto',
+        'agnes.jeruto@email.com',
+        '+254700000048',
+        '30000048',
+        'DL100048',
+        'Eldoret',
+        '
+2025-08-03'
+    ),
+    (
+        'Martin',
+        'Were',
+        'martin.were@email.com',
+        '+254700000049',
+        '30000049',
+        'DL100049',
+        'Kakameg
+a',
+        '2025-08-08'
+    ),
+    (
+        'Rose',
+        'Nasimiyu',
+        'rose.nasimiyu@email.com',
+        '+254700000050',
+        '30000050',
+        'DL100050',
+        'Bungo
+ma',
+        '2025-08-12'
+    );
+
+SAVEPOINT customers_loaded;
+
 -- Employees
 INSERT INTO
     Employees (
