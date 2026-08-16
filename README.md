@@ -419,7 +419,7 @@ These views simplify commonly required business reports without requiring manage
 
 | Name            | GitHub username     | Role on this project                                                              |
 | ----------------| --------------------| --------------------------------------------------------------------------------- |
-| Megan Philister | [@username]         | Group Leader, No contribution yet                                                 |
+| Megan Philister | [@username]         | No contribution yet                                                               |
 | Joel Ndung'u    | Joexvs              | Employees table                                                                   |
 | Nashaa Ndamu    | [@username]         | No contribution yet                                                               |
 | Ashley Mwanza   | httpsxash           | Maintenance table and seed data                                                   |
