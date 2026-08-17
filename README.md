@@ -425,7 +425,7 @@ These views simplify commonly required business reports without requiring manage
 | Ashley Mwanza   | httpsxash           | Maintenance table, field constraints, seed data and DQL query                     |
 | Eric Kabui      | erickabui52-pixel   | No contribution yet                                                               |
 | Fred Nyaga      | destroitramon       | No contribution yet                                                               |
-| Eric Mwendwa    | Ericmwendwa99-alt   | Cars table and field constraints                                                  |
+| Eric Mwendwa    | Ericmwendwa99-alt   | Cars table, field constraints and seed data                                       |
 | Zuwena Kisya    | [@username]         | No contribution yet                                                               |
 | Melissa Wanjiru | lisamelly3226-ai    | Payments table and field constraints                                              |
 | Andreas Muhavi  | [@username]         | No contribution yet                                                               |
