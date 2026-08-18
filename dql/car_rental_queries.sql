@@ -209,7 +209,6 @@ WHERE
     )
 ORDER BY
     mileage DESC;
-    
 
 -- Employees 
 -- 1. How many employees work for DriveEase Rentals? 
@@ -271,6 +270,71 @@ WHERE
 ORDER BY
     hire_date;
 
+-- Customers 
+-- 1. How many customers are registered with DriveEase Rentals? 
+-- Demonstrates: COUNT 
+SELECT
+    COUNT(*) AS total_customers
+FROM
+    Customers;
+
+-- 2. What are the names, phone numbers, and email addresses of all customers? 
+-- Demonstrates: SELECT and ORDER BY 
+SELECT
+    CONCAT(first_name, ' ', last_name) AS customer_name,
+    phone,
+    email
+FROM
+    Customers
+ORDER BY
+    customer_name;
+
+-- 3. Which customers are registered from each city or location? 
+-- Demonstrates: SELECT and ORDER BY 
+SELECT
+    address,
+    CONCAT(first_name, ' ', last_name) AS customer_name,
+    phone,
+    email
+FROM
+    Customers
+ORDER BY
+    address,
+    customer_name;
+
+-- 4. Which customers registered during 2025? 
+-- Demonstrates: WHERE 
+SELECT
+    customer_id,
+    CONCAT(first_name, ' ', last_name) AS customer_name,
+    email,
+    phone,
+    date_registered
+FROM
+    Customers
+WHERE
+    date_registered >= '2025-01-01'
+    AND date_registered < '2026-01-01'
+ORDER BY
+    date_registered;
+
+-- 5. Which customers have made more than one rental? 
+-- Demonstrates: JOIN, GROUP BY, COUNT and HAVING 
+SELECT
+    c.customer_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    COUNT(r.rental_id) AS total_rentals
+FROM
+    Customers c
+    JOIN Rentals r ON c.customer_id = r.customer_id
+GROUP BY
+    c.customer_id,
+    c.first_name,
+    c.last_name
+HAVING
+    COUNT(r.rental_id) > 1
+ORDER BY
+    total_rentals DESC;
 
 -- CROSS-TABLE / BUSINESS QUESTIONS
 -- 1. What cars has each customer rented?
