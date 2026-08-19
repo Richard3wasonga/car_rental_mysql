@@ -401,6 +401,62 @@ ORDER BY
 LIMIT
     1;
 
+-- Car Categories 
+-- 1. How many car categories are available? 
+-- Demonstrates: COUNT 
+SELECT
+    COUNT(*) AS total_car_categories
+FROM
+    Car_Categories;
+
+-- 2. What are the names and daily rental rates of all car categories? 
+-- Demonstrates: SELECT and ORDER BY 
+SELECT
+    category_name,
+    daily_rate
+FROM
+    Car_Categories
+ORDER BY
+    category_name;
+
+-- 3. Which car category has the highest daily rental rate? 
+-- Demonstrates: ORDER BY and LIMIT 
+SELECT
+    category_name,
+    daily_rate
+FROM
+    Car_Categories
+ORDER BY
+    daily_rate DESC
+LIMIT
+    1;
+
+-- 4. Which car category has the lowest daily rental rate? 
+-- Demonstrates: ORDER BY and LIMIT 
+SELECT
+    category_name,
+    daily_rate
+FROM
+    Car_Categories
+ORDER BY
+    daily_rate ASC
+LIMIT
+    1;
+
+-- 5. How many cars belong to each category? 
+-- Demonstrates: JOIN, GROUP BY and COUNT 
+SELECT
+    cc.category_name,
+    COUNT(c.car_id) AS total_cars
+FROM
+    Car_Categories cc
+    LEFT JOIN Cars c ON cc.category_id = c.category_id
+GROUP BY
+    cc.category_id,
+    cc.category_name
+ORDER BY
+    total_cars DESC;
+
 -- CROSS-TABLE / BUSINESS QUESTIONS
 -- 1. What cars has each customer rented?
 -- Demonstrates: INNER JOIN across Customers, Rentals and Cars
