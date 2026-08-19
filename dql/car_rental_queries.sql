@@ -336,6 +336,71 @@ HAVING
 ORDER BY
     total_rentals DESC;
 
+-- Branches 
+-- 1. How many branches does DriveEase Rentals have? 
+-- Demonstrates: COUNT 
+SELECT
+    COUNT(*) AS total_branches
+FROM
+    Branches;
+
+-- 2. What are the names, cities, addresses, and phone numbers of all branches? 
+-- Demonstrates: SELECT and ORDER BY 
+SELECT
+    branch_name,
+    city,
+    address,
+    phone
+FROM
+    Branches
+ORDER BY
+    branch_name;
+
+-- 3. How many employees work at each branch? 
+-- Demonstrates: JOIN, GROUP BY and COUNT 
+SELECT
+    b.branch_name,
+    COUNT(e.employee_id) AS total_employees
+FROM
+    Branches b
+    LEFT JOIN Employees e ON b.branch_id = e.branch_id
+GROUP BY
+    b.branch_id,
+    b.branch_name
+ORDER BY
+    total_employees DESC;
+
+-- 4. How many cars are assigned to each branch? 
+-- Demonstrates: JOIN, GROUP BY and COUNT 
+SELECT
+    b.branch_name,
+    COUNT(c.car_id) AS total_cars
+FROM
+    Branches b
+    LEFT JOIN Cars c ON b.branch_id = c.branch_id
+GROUP BY
+    b.branch_id,
+    b.branch_name
+ORDER BY
+    total_cars DESC;
+
+-- 5. Which branch has the most cars? 
+-- Demonstrates: JOIN, GROUP BY, COUNT and ORDER BY 
+SELECT
+    b.branch_id,
+    b.branch_name,
+    COUNT(c.car_id) AS total_cars
+FROM
+    Branches b
+    LEFT JOIN Cars c ON b.branch_id = c.branch_id
+GROUP BY
+    b.branch_id,
+    b.branch_name
+ORDER BY
+    total_cars DESC
+LIMIT
+    1;
+
 -- CROSS-TABLE / BUSINESS QUESTIONS
 -- 1. What cars has each customer rented?
 -- Demonstrates: INNER JOIN across Customers, Rentals and Cars
