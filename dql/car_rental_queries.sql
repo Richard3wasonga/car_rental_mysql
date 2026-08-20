@@ -457,6 +457,78 @@ GROUP BY
 ORDER BY
     total_cars DESC;
 
+-- Rentals 
+-- 1. How many rentals have been completed, are currently active, and have been cancelled? 
+-- Demonstrates: GROUP BY and COUNT 
+SELECT
+    rental_status,
+    COUNT(*) AS total_rentals
+FROM
+    Rentals
+GROUP BY
+    rental_status
+ORDER BY
+    rental_status;
+
+-- 2. Which rentals are currently active? 
+-- Demonstrates: WHERE 
+SELECT
+    rental_id,
+    customer_id,
+    car_id,
+    employee_id,
+    rental_date,
+    expected_return_date,
+    rental_status
+FROM
+    Rentals
+WHERE
+    rental_status = 'Active'
+ORDER BY
+    rental_date;
+
+-- 3. Which rentals were completed after their expected return date? 
+-- Demonstrates: WHERE and date comparison 
+SELECT
+    rental_id,
+    customer_id,
+    car_id,
+    rental_date,
+    expected_return_date,
+    actual_return_date
+FROM
+    Rentals
+WHERE
+    rental_status = 'Completed'
+    AND actual_return_date > expected_return_date
+ORDER BY
+    actual_return_date;
+
+-- 4. Which customers have made the most rentals? 
+-- Demonstrates: JOIN, GROUP BY, COUNT and ORDER BY 
+SELECT
+    c.customer_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    COUNT(r.rental_id) AS total_rentals
+FROM
+    Customers c
+    JOIN Rentals r ON c.customer_id = r.customer_id
+GROUP BY
+    c.customer_id,
+    c.first_name,
+    c.last_name
+ORDER BY
+    total_rentals DESC;
+
+-- 5. What is the average duration of completed rentals? 
+-- Demonstrates: AVG and DATEDIFF 
+SELECT
+    AVG(DATEDIFF(actual_return_date, rental_date)) AS average_rental_duration_days
+FROM
+    Rentals
+WHERE
+    rental_status = 'Completed';
+
 -- CROSS-TABLE / BUSINESS QUESTIONS
 -- 1. What cars has each customer rented?
 -- Demonstrates: INNER JOIN across Customers, Rentals and Cars
