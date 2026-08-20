@@ -529,6 +529,70 @@ FROM
 WHERE
     rental_status = 'Completed';
 
+-- Payments 
+-- 1. How many payments have been made using each payment method? 
+-- Demonstrates: GROUP BY and COUNT 
+SELECT
+    payment_method,
+    COUNT(payment_id) AS total_payments
+FROM
+    Payments
+GROUP BY
+    payment_method
+ORDER BY
+    total_payments DESC;
+
+-- 2. How much money has been received through each payment method? 
+-- Demonstrates: GROUP BY and SUM 
+SELECT
+    payment_method,
+    SUM(amount) AS total_amount_received
+FROM
+    Payments
+WHERE
+    payment_status = 'Paid'
+GROUP BY
+    payment_method
+ORDER BY
+    total_amount_received DESC;
+
+-- 3. How many payments are Paid, Pending, and Refunded? 
+-- Demonstrates: GROUP BY and COUNT 
+SELECT
+    payment_status,
+    COUNT(payment_id) AS total_payments
+FROM
+    Payments
+GROUP BY
+    payment_status
+ORDER BY
+    total_payments DESC;
+
+-- 4. Which rentals have pending payments? 
+-- Demonstrates: JOIN and WHERE 
+SELECT
+    p.rental_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS customer_name,
+    p.amount,
+    p.payment_date,
+    p.payment_method,
+    p.payment_status
+FROM
+    Payments p
+    JOIN Rentals r ON p.rental_id = r.rental_id
+    JOIN Customers c ON r.customer_id = c.customer_id
+WHERE
+    p.payment_status = 'Pending'
+ORDER BY
+    p.rental_id;
+
+-- 5. What is the average payment amount? 
+-- Demonstrates: AVG 
+SELECT
+    AVG(amount) AS average_payment_amount
+FROM
+    Payments;
+
 -- CROSS-TABLE / BUSINESS QUESTIONS
 -- 1. What cars has each customer rented?
 -- Demonstrates: INNER JOIN across Customers, Rentals and Cars
