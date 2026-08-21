@@ -384,3 +384,164 @@ GROUP BY
 SELECT *
 FROM car_maintenance_summary
 ORDER BY total_maintenance_cost DESC;
+
+USE driveease_rentals;
+
+
+-- CAR MANAGEMENT
+
+-- 1. Display all cars with their basic information.
+-- Demonstrates: SELECT and ORDER BY
+
+SELECT
+    car_id,
+    registration_number,
+    make,
+    model,
+    color,
+    manufacture_year,
+    mileage,
+    seats,
+    fuel_type,
+    transmission,
+    status
+FROM Cars
+ORDER BY registration_number;
+
+
+-- 2. Which cars are currently available for rental?
+-- Demonstrates: WHERE
+
+SELECT
+    car_id,
+    registration_number,
+    make,
+    model,
+    manufacture_year,
+    fuel_type,
+    transmission,
+    status
+FROM Cars
+WHERE status = 'Available'
+ORDER BY make, model;
+
+
+-- 3. Which cars are currently rented?
+-- Demonstrates: WHERE
+
+SELECT
+    car_id,
+    registration_number,
+    make,
+    model,
+    status
+FROM Cars
+WHERE status = 'Rented'
+ORDER BY registration_number;
+
+
+-- 4. How many cars are available, rented, under maintenance,
+--    or retired?
+-- Demonstrates: GROUP BY and COUNT
+
+SELECT
+    status,
+    COUNT(*) AS total_cars
+FROM Cars
+GROUP BY status
+ORDER BY total_cars DESC;
+
+
+-- 5. How many cars are assigned to each branch?
+-- Demonstrates: JOIN, GROUP BY and COUNT
+
+SELECT
+    b.branch_id,
+    b.branch_name,
+    b.city,
+    COUNT(c.car_id) AS total_cars
+FROM Branches b
+LEFT JOIN Cars c
+    ON b.branch_id = c.branch_id
+GROUP BY
+    b.branch_id,
+    b.branch_name,
+    b.city
+ORDER BY total_cars DESC;
+
+
+-- 6. What is the average mileage of cars at each branch?
+-- Demonstrates: JOIN, AVG and GROUP BY
+
+SELECT
+    b.branch_name,
+    b.city,
+    AVG(c.mileage) AS average_mileage
+FROM Branches b
+JOIN Cars c
+    ON b.branch_id = c.branch_id
+GROUP BY
+    b.branch_id,
+    b.branch_name,
+    b.city
+ORDER BY average_mileage DESC;
+
+
+-- 7. Which cars have the highest mileage?
+-- Demonstrates: ORDER BY and LIMIT
+
+SELECT
+    car_id,
+    registration_number,
+    make,
+    model,
+    mileage,
+    status
+FROM Cars
+ORDER BY mileage DESC
+LIMIT 5;
+
+
+-- 8. Which cars were manufactured from 2022 onwards?
+-- Demonstrates: comparison operator and WHERE
+
+SELECT
+    registration_number,
+    make,
+    model,
+    manufacture_year,
+    color,
+    mileage
+FROM Cars
+WHERE manufacture_year >= 2022
+ORDER BY manufacture_year DESC;
+
+
+-- 9. How many cars are available for each fuel type?
+-- Demonstrates: WHERE, GROUP BY and COUNT
+
+SELECT
+    fuel_type,
+    COUNT(*) AS available_cars
+FROM Cars
+WHERE status = 'Available'
+GROUP BY fuel_type
+ORDER BY available_cars DESC;
+
+
+-- 10. Which cars have mileage greater than the average mileage
+--     of all cars?
+-- Demonstrates: Subquery and AVG
+
+SELECT
+    car_id,
+    registration_number,
+    make,
+    model,
+    mileage
+FROM Cars
+WHERE mileage > (
+    SELECT AVG(mileage)
+    FROM Cars
+)
+ORDER BY mileage DESC;
