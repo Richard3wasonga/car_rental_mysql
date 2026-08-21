@@ -593,6 +593,58 @@ SELECT
 FROM
     Payments;
 
+-- Rental Services 
+-- 1. How many additional rental services are offered? 
+-- Demonstrates: COUNT 
+SELECT
+    COUNT(*) AS total_rental_services
+FROM
+    RentalServices;
+
+-- 2. What are the available rental services and their daily prices? 
+-- Demonstrates: SELECT and ORDER BY 
+SELECT
+    service_id,
+    service_name,
+    daily_price
+FROM
+    RentalServices
+ORDER BY
+    daily_price;
+
+-- 3. Which rental service is the most expensive per day? 
+-- Demonstrates: ORDER BY and LIMIT 
+SELECT
+    service_id,
+    service_name,
+    daily_price
+FROM
+    RentalServices
+ORDER BY
+    daily_price DESC
+LIMIT
+    1;
+
+-- 4. Which rental service is the cheapest per day? 
+-- Demonstrates: ORDER BY and LIMIT 
+SELECT
+    service_id,
+    service_name,
+    daily_price
+FROM
+    RentalServices
+ORDER BY
+    daily_price ASC
+LIMIT
+    1;
+
+-- 5. What is the average daily price of the additional services? 
+-- Demonstrates: AVG 
+SELECT
+    AVG(daily_price) AS average_daily_price
+FROM
+    RentalServices;
+
 -- CROSS-TABLE / BUSINESS QUESTIONS
 -- 1. What cars has each customer rented?
 -- Demonstrates: INNER JOIN across Customers, Rentals and Cars
