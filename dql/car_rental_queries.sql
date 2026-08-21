@@ -645,6 +645,84 @@ SELECT
 FROM
     RentalServices;
 
+-- Rental Service Details 
+-- 1. Which additional services have been added to each rental? 
+-- Demonstrates: JOIN 
+SELECT
+    rsd.rental_id,
+    rs.service_name,
+    rsd.quantity,
+    rs.daily_price,
+    (rsd.quantity * rs.daily_price) AS service_total
+FROM
+    RentalServiceDetails rsd
+    JOIN RentalServices rs ON rsd.service_id = rs.service_id
+ORDER BY
+    rsd.rental_id,
+    rs.service_name;
+
+-- 2. How many times has each rental service been selected? 
+-- Demonstrates: JOIN, GROUP BY and COUNT 
+SELECT
+    rs.service_id,
+    rs.service_name,
+    COUNT(rsd.rental_id) AS selection_count
+FROM
+    RentalServices rs
+    JOIN RentalServiceDetails rsd ON rs.service_id = rsd.service_id
+GROUP BY
+    rs.service_id,
+    rs.service_name
+ORDER BY
+    selection_count DESC;
+
+-- 3. Which rental service has been selected the most times? 
+-- Demonstrates: JOIN, GROUP BY, COUNT and ORDER BY 
+SELECT
+    rs.service_id,
+    rs.service_name,
+    COUNT(rsd.rental_id) AS selection_count
+FROM
+    RentalServices rs
+    JOIN RentalServiceDetails rsd ON rs.service_id = rsd.service_id
+GROUP BY
+    rs.service_id,
+    rs.service_name
+ORDER BY
+    selection_count DESC
+LIMIT
+    1;
+
+-- 4. Which rentals have more than one additional service? 
+-- Demonstrates: JOIN, GROUP BY, COUNT and HAVING 
+SELECT
+    rsd.rental_id,
+    COUNT(rsd.service_id) AS total_services
+FROM
+    RentalServiceDetails rsd
+GROUP BY
+    rsd.rental_id
+HAVING
+    COUNT(rsd.service_id) > 1
+ORDER BY
+    total_services DESC;
+
+-- 5. Which rentals have no additional services? 
+-- Demonstrates: LEFT JOIN and WHERE 
+SELECT
+    r.rental_id,
+    r.customer_id,
+    r.car_id,
+    r.rental_date,
+    r.rental_status
+FROM
+    Rentals r
+    LEFT JOIN RentalServiceDetails rsd ON r.rental_id = rsd.rental_id
+WHERE
+    rsd.rental_id IS NULL
+ORDER BY
+    r.rental_id;
+
 -- CROSS-TABLE / BUSINESS QUESTIONS
 -- 1. What cars has each customer rented?
 -- Demonstrates: INNER JOIN across Customers, Rentals and Cars
