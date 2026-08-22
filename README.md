@@ -420,12 +420,12 @@ These views simplify commonly required business reports without requiring manage
 | Name            | GitHub username     | Role on this project                                                              |
 | ----------------| --------------------| --------------------------------------------------------------------------------- |
 | Megan Philister | [@username]         | No contribution yet                                                               |
-| Joel Ndung'u    | Joexvs              | Employees table and field constraints                                             |
+| Joel Ndung'u    | Joexvs              | Employees table, field constraints and DQL query                                  |
 | Nashaa Ndamu    | [@username]         | No contribution yet                                                               |
 | Ashley Mwanza   | httpsxash           | Maintenance table, field constraints, seed data and DQL query                     |
 | Eric Kabui      | erickabui52-pixel   | No contribution yet                                                               |
 | Fred Nyaga      | destroitramon       | No contribution yet                                                               |
-| Eric Mwendwa    | Ericmwendwa99-alt   | Cars table, field constraints and seed data                                       |
+| Eric Mwendwa    | Ericmwendwa99-alt   | Cars table, field constraints, seed data and DQL query                            |
 | Zuwena Kisya    | [@username]         | No contribution yet                                                               |
 | Melissa Wanjiru | lisamelly3226-ai    | Payments table and field constraints                                              |
 | Andreas Muhavi  | [@username]         | No contribution yet                                                               |
