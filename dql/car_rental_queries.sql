@@ -308,6 +308,7 @@ GROUP BY
     b.branch_id,
     b.branch_name
 ORDER BY
+
     total_employees DESC;
 
 -- 4. How many cars are assigned to each branch? 
@@ -1046,3 +1047,69 @@ FROM
     car_maintenance_summary
 ORDER BY
     total_maintenance_cost DESC;
+
+-- Employees
+
+-- 1. How many employees work for DriveEase Rentals?
+-- Demonstrates: COUNT
+
+SELECT
+    COUNT(*) AS total_employees
+FROM
+    Employees;
+
+-- 2. What are the names, job titles, and hire dates of all employees?
+-- Demonstrates: SELECT and ORDER BY
+
+SELECT
+    CONCAT(first_name, ' ', last_name) AS employee_name,
+    Job_title,
+    Hire_date
+FROM
+    Employees
+ORDER BY
+    Hire_date;
+
+-- 3. Which employees work at each branch?
+-- Demonstrates: JOIN
+
+SELECT
+    b.branch_name,
+    CONCAT(e.first_name, ' ', e.last_name) AS employee_name,
+    e.job_title
+FROM
+    Employees e
+    JOIN Branches b ON e.branch_id = b.branch_id
+ORDER BY
+    b.branch_name,
+    employee_name;
+
+-- 4. How many employees work at each branch?
+-- Demonstrates: JOIN, GROUP BY and COUNT
+
+SELECT
+    b.branch_name,
+    COUNT(e.employee_id) AS total_employees
+FROM
+    Branches b
+    LEFT JOIN Employees e ON b.branch_id = e.branch_id
+GROUP BY
+    b.branch_id,
+    b.branch_name
+ORDER BY
+    total_employees DESC;
+
+-- 5. Which employees were hired after 2023?
+-- Demonstrates: WHERE
+
+SELECT
+    employee_id,
+    CONCAT(first_name, ' ', last_name) AS employee_name,
+    job_title,
+    hire_date
+FROM
+    Employees
+WHERE
+    hire_date > '2023-12-31'
+ORDER BY
+    hire_date;
